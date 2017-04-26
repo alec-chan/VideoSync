@@ -1,0 +1,8 @@
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.exe.config
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.csprojResolveAssemblyReference.cache
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.exe
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.pdb
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\websocket-sharp.dll
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\websocket-sharp.xml
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.exe
+c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.pdb

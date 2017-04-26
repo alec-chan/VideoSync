@@ -1,0 +1,25 @@
+<head>
+  <link href="http://vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">
+  <!-- If you'd like to support IE8 -->
+  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <!-- video-sync client -->
+  
+</head>
+
+<body>
+    <video id="video" class="video-js" controls preload="auto" width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png" data-setup='{"techOrder": ["html5", "youtube"]}'>
+        <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
+    </video>
+    <br />
+    <br />
+    <form>
+        Video URL: 
+        <input id="url" type="text">
+        <button type="button" onclick="seturl()">Set</button>
+    </form>
+
+  <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
+  <script src="Youtube.js"></script>
+  <script type="text/javascript" src="client.js"></script>
+</body>
