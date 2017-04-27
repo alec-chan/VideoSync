@@ -1,6 +1,8 @@
 //client.js
-
-var socket = new WebSocket('ws://localhost:80/ws');
+var path = window.location.pathname;
+var href = window.location.href;
+var defColor = document.getElementById("headerid").style.color;
+var socket = new WebSocket('ws://localhost:80'+path);
 var video = videojs('video');
 
 var client_id;
@@ -101,10 +103,12 @@ function processEvent(event)
     {
         case ACTIONS.SETOWNER:
             client_id = event.data;
+            document.getElementById("headerid").style.color = "#FFC107";
             owner = true;
             console.log("I am the owner");
             console.log("ID: " + client_id);
-            document.getElementById("myid").innerHTML = "You are the owner";
+            document.getElementById("code").value = href;
+            //document.getElementById("myid").innerHTML = "You are the owner";
             break;
         case ACTIONS.BROADCASTURL:
             
@@ -132,7 +136,8 @@ function processEvent(event)
             owner = false;
             console.log("I am a client");
             console.log("ID: " + client_id);
-            document.getElementById("myid").innerHTML = "You are a client";
+            //document.getElementById("myid").innerHTML = "You are a client";
+            document.getElementById("code").value = href;
             break;
         case ACTIONS.REQUESTCOUNT:
             sendMessage(ACTIONS.CLIENTRESPONDTOCOUNT, client_id);
@@ -154,6 +159,9 @@ function seturl()
             video.src(url);
     }
 }
+
+
+
 
 
 

@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using WebSocketSharp;
 using WebSocketSharp.Net;
 using WebSocketSharp.Server;
+using System.Collections.Generic;
 
 namespace VideoSync
 {
     class Program
     {
+        public static List<string> roomCodes;
+
         public static void Main(string[] args)
         {
 
-
+            roomCodes = new List<string>();
             var httpsv = new HttpServer(80);
 
             // To resolve to wait for socket in TIME_WAIT state.
@@ -29,10 +33,35 @@ namespace VideoSync
                 var res = e.Response;
 
                 var path = req.RawUrl;
+
+                if (path.Length == 6 && !path.Contains("."))
+                {
+                    if (roomCodes.Contains(path.Remove(0, 1)))
+                    {
+                        path = "/index.html";
+                    }
+                    else
+                    {
+                        path = "/index.html";
+                        var newCode = RandomString(5);
+                        roomCodes.Add(newCode);
+                        httpsv.AddWebSocketService<Server>("/" + newCode);
+                        res.Redirect((req.Url.GetLeftPart(UriPartial.Authority) +"/"+ newCode));
+                    }
+                }
+                
+
                 if (path == "/")
-                    path += "index.html";
+                {
+                    path = "/index.html";
+                    var newCode = RandomString(5);
+                    roomCodes.Add(newCode);
+                    httpsv.AddWebSocketService<Server>("/" + newCode);
+                    res.Redirect(req.Url+ newCode);
+                }
 
                 var content = httpsv.GetFile(path);
+
                 if (content == null)
                 {
                     res.StatusCode = (int)HttpStatusCode.NotFound;
@@ -55,11 +84,16 @@ namespace VideoSync
                     res.ContentEncoding = Encoding.UTF8;
                 }
 
+                
+                
                 res.WriteContent(content);
+                
+                
             };
 
-            // Add the WebSocket services.
-            httpsv.AddWebSocketService<Server>("/ws");
+           
+
+            
 
             
             httpsv.Start();
@@ -76,6 +110,14 @@ namespace VideoSync
             Console.ReadLine();
 
             httpsv.Stop();
+        }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VideoSync.exe" size="10712">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VideoSync.exe" size="11736">
       <assemblyIdentity name="VideoSync" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vhgU++LBVoqekr4GsFZ7gYm7FOT/iI+UiWw1H4pAq+Y=</dsig:DigestValue>
+        <dsig:DigestValue>pvTjNI/htfFo61ih6nG/GK49bYj/pKXRKUqD5xWxKxs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -191,22 +191,22 @@
       <dsig:DigestValue>wuHnKw3jVvbOGE469PqKtlkKJYEWKQWifXeIay2WDgA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\client.js" size="3645">
+  <file name="Public\client.js" size="3723">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>BHTMf/IJlqzOMrl/1Vzdo2Y8/1SCjPiHCb1aYOSX+R8=</dsig:DigestValue>
+      <dsig:DigestValue>m+rumF0Xx69mHuZvQZbxgBKSYIzrSBZwGPnZcS6zjfw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\index.html" size="2966">
+  <file name="Public\index.html" size="2709">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>F82vDizeqtehHwN8v4cx+ubZhBgddeXjfTvXjjCT21c=</dsig:DigestValue>
+      <dsig:DigestValue>81ERF3gcZ68YwVJL56qkBqJUl7KhUcV0/A0UxtouzcY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="VideoSync.exe.config" size="272">
