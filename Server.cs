@@ -15,7 +15,7 @@ namespace VideoSync
 
         private bool paused;
         private double time;
-        private string url;
+        private static string url;
 
         private void GetCount()
         {
@@ -70,8 +70,13 @@ namespace VideoSync
                         BroadcastExcept(ACTIONS.BROADCASTPLAY, null);
                     }
 
-                    BroadcastExcept(ACTIONS.BROADCASTURL, url);
+                    var cm1 = new ClientMessage();
+                    cm1.action = (int)ACTIONS.BROADCASTURL;
+                    cm1.data = url;
 
+                    var json1 = new JavaScriptSerializer().Serialize(cm1);
+                    Console.WriteLine(json1);
+                    Send(json1);
 
                 }
             }
@@ -86,7 +91,7 @@ namespace VideoSync
         protected override void OnMessage(MessageEventArgs e)
         {
 
-            Console.WriteLine("Recieved data: " + e.Data);
+            //Console.WriteLine("Recieved data: " + e.Data);
             var obj = new JavaScriptSerializer().Deserialize(e.Data, typeof(ClientMessage));
 
             ClientMessage cm = (ClientMessage)obj;
@@ -176,9 +181,10 @@ namespace VideoSync
 
         private void BroadcastExcept(ACTIONS action, object data)
         {
-            foreach(Client c in clients)
+            clientList = Sessions.Broadping();
+            foreach (var c in clientList)
             {
-                if (c.ID != ownerID)
+                if (c.Key != ownerID)
                 {
                     //construct our message
                     var msg = new ClientMessage();
@@ -187,7 +193,7 @@ namespace VideoSync
 
                     //serialize and send
                     var json = new JavaScriptSerializer().Serialize(msg);
-                    Sessions.SendTo(json, c.ID);
+                    Sessions.SendTo(json, c.Key);
                 }
             }
             

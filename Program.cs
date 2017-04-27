@@ -49,6 +49,11 @@ namespace VideoSync
                     res.ContentType = "application/javascript";
                     res.ContentEncoding = Encoding.UTF8;
                 }
+                else if (path.EndsWith(".css"))
+                {
+                    res.ContentType = "text/css";
+                    res.ContentEncoding = Encoding.UTF8;
+                }
 
                 res.WriteContent(content);
             };

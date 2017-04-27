@@ -12,6 +12,22 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +47,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>ABE31E569598D63C730C14B3AA3E4C3C5B1A4F7A</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>VideoSync_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,9 +84,62 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Public\assets\fonts\fontawesome-webfont.eot" />
+    <None Include="Public\assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="Public\assets\fonts\fontawesome-webfont.woff" />
+    <None Include="Public\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="Public\assets\fonts\FontAwesome.otf" />
+    <None Include="Public\assets\sass\base\_page.scss" />
+    <None Include="Public\assets\sass\base\_typography.scss" />
+    <None Include="Public\assets\sass\components\_box.scss" />
+    <None Include="Public\assets\sass\components\_button.scss" />
+    <None Include="Public\assets\sass\components\_form.scss" />
+    <None Include="Public\assets\sass\components\_icon.scss" />
+    <None Include="Public\assets\sass\components\_image.scss" />
+    <None Include="Public\assets\sass\components\_list.scss" />
+    <None Include="Public\assets\sass\components\_section.scss" />
+    <None Include="Public\assets\sass\components\_spotlight.scss" />
+    <None Include="Public\assets\sass\components\_table.scss" />
+    <None Include="Public\assets\sass\components\_wrapper.scss" />
+    <None Include="Public\assets\sass\ie8.scss" />
+    <None Include="Public\assets\sass\ie9.scss" />
+    <None Include="Public\assets\sass\layout\_footer.scss" />
+    <None Include="Public\assets\sass\layout\_header.scss" />
+    <None Include="Public\assets\sass\layout\_main.scss" />
+    <None Include="Public\assets\sass\libs\_functions.scss" />
+    <None Include="Public\assets\sass\libs\_mixins.scss" />
+    <None Include="Public\assets\sass\libs\_skel.scss" />
+    <None Include="Public\assets\sass\libs\_vars.scss" />
+    <None Include="Public\assets\sass\main.scss" />
+    <None Include="VideoSync_TemporaryKey.pfx" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Public\assets\css\font-awesome.min.css" />
+    <Content Include="Public\assets\css\ie8.css" />
+    <Content Include="Public\assets\css\ie9.css" />
+    <Content Include="Public\assets\css\images\overlay.png" />
+    <Content Include="Public\assets\css\main.css" />
+    <Content Include="Public\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Public\assets\js\ie\html5shiv.js" />
+    <Content Include="Public\assets\js\ie\PIE.htc" />
+    <Content Include="Public\assets\js\ie\respond.min.js" />
+    <Content Include="Public\assets\js\jquery.min.js" />
+    <Content Include="Public\assets\js\jquery.scrolly.min.js" />
+    <Content Include="Public\assets\js\main.js" />
+    <Content Include="Public\assets\js\skel.min.js" />
+    <Content Include="Public\assets\js\util.js" />
     <Content Include="Public\client.js" />
     <Content Include="Public\index.html" />
   </ItemGroup>

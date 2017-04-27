@@ -6,3 +6,7 @@ c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debu
 c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\websocket-sharp.xml
 c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.exe
 c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.pdb
+C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.exe.manifest
+C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.application
+C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.exe.manifest
+C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.application
