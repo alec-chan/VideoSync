@@ -19,7 +19,9 @@ var ACTIONS = {
     SENDCHAT: 9,
     BROADCASTCHAT: 10,
     DISCONNECTED: 11,
-    CONNECTED: 12
+    CONNECTED: 12,
+    REQUESTCOUNT: 13,
+    CLIENTRESPONDTOCOUNT: 14
 };
 
 if (!owner) {
@@ -131,6 +133,9 @@ function processEvent(event)
             console.log("I am a client");
             console.log("ID: " + client_id);
             document.getElementById("myid").innerHTML = "You are a client";
+            break;
+        case ACTIONS.REQUESTCOUNT:
+            sendMessage(ACTIONS.CLIENTRESPONDTOCOUNT, client_id);
             break;
     }
 }

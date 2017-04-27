@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="VideoSync.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="VideoSync.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="VideoSync" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VideoSync.exe" size="11224">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VideoSync.exe" size="10712">
       <assemblyIdentity name="VideoSync" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BFNgUfgW7UZIz5fzkYkOdf4EoIWsEULgu/BCsMzvVL8=</dsig:DigestValue>
+        <dsig:DigestValue>vhgU++LBVoqekr4GsFZ7gYm7FOT/iI+UiWw1H4pAq+Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -191,13 +191,13 @@
       <dsig:DigestValue>wuHnKw3jVvbOGE469PqKtlkKJYEWKQWifXeIay2WDgA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\client.js" size="3468">
+  <file name="Public\client.js" size="3645">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ZACN91Ag/fo+5fs71qKcHHMwrtM1wqSunimKbIqg6MU=</dsig:DigestValue>
+      <dsig:DigestValue>BHTMf/IJlqzOMrl/1Vzdo2Y8/1SCjPiHCb1aYOSX+R8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Public\index.html" size="2966">
@@ -206,7 +206,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>CW6aDLd153QV0+NMwoZNe7nhRiS0efrCYudWd/al+oo=</dsig:DigestValue>
+      <dsig:DigestValue>F82vDizeqtehHwN8v4cx+ubZhBgddeXjfTvXjjCT21c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="VideoSync.exe.config" size="272">

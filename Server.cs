@@ -9,57 +9,41 @@ namespace VideoSync
 {
     public class Server : WebSocketBehavior
     {
-        private static List<Client> clients = new List<Client>();
-        private Dictionary<string, bool> clientList;
-        private string ownerID;
-
+        
+        private string ownerID="";
+        private int clientCount = 0;
         private bool paused;
-        private double time;
         private static string url;
 
+        
         private void GetCount()
         {
-            Console.WriteLine("Connected clients: " + clients.Count());
+            Console.WriteLine("Connected clients: " + Sessions.Count);
         }
 
         protected override void OnOpen()
         {
-            var c = new Client();
+            
             IWebSocketSession s;
-
+            
             if (Sessions.TryGetSession(Sessions.ActiveIDs.Last(), out s))
             {
-                c.ID = s.ID;
-                clients.Add(c);
-                
 
 
 
-                Console.WriteLine("Client connected with ID: " + c.ID);
+
+                Console.WriteLine("Client connected with ID: " + s.ID);
                 
                 Console.WriteLine("");
                 //tell the owner that they are the owner
-                if (clients.Count == 1)
+                if (Sessions.Count==1)
                 {
-                    var cm = new ClientMessage();
-                    cm.action = (int)ACTIONS.SETOWNER;
-                    cm.data = clients[0].ID;
-                    ownerID = (string)cm.data;
-
-                    var json = new JavaScriptSerializer().Serialize(cm);
-                    Console.WriteLine(json);
-                    Send(json);
+                    TryGetNewOwner();
                 }
                 else
                 {
-                    var cm = new ClientMessage();
-                    cm.action = (int)ACTIONS.CONNECTED;
-                    cm.data = clients.Last().ID;
-
-
-                    var json = new JavaScriptSerializer().Serialize(cm);
-                    Console.WriteLine(json);
-                    Send(json);
+                    
+                    Send(ConstructMessage(ACTIONS.CONNECTED, s.ID));
 
                     if(paused)
                     {
@@ -70,16 +54,13 @@ namespace VideoSync
                         BroadcastExcept(ACTIONS.BROADCASTPLAY, null);
                     }
 
-                    var cm1 = new ClientMessage();
-                    cm1.action = (int)ACTIONS.BROADCASTURL;
-                    cm1.data = url;
-
-                    var json1 = new JavaScriptSerializer().Serialize(cm1);
-                    Console.WriteLine(json1);
-                    Send(json1);
+                    
+                    Send(ConstructMessage(ACTIONS.BROADCASTURL, url));
 
                 }
             }
+
+            Sessions.Broadcast(ConstructMessage(ACTIONS.REQUESTCOUNT, null));
         }
 
         protected override void OnClose(CloseEventArgs e)
@@ -128,76 +109,96 @@ namespace VideoSync
 
                 //Echo chat back to all
                 case (int)ACTIONS.SENDCHAT:
-                    var c = new ClientMessage();
-                    c.action = (int)ACTIONS.BROADCASTCHAT;
-                    c.data = cm.data;
-                    var json = new JavaScriptSerializer().Serialize(c);
-                    Sessions.Broadcast(json);
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.BROADCASTCHAT, cm.data));
                     break;
 
                 case (int)ACTIONS.DISCONNECTED:
-                    var prevOwner = clients[0].ID;
-                    clientList = Sessions.Broadping();
-                    for (int i =0; i<clients.Count; i++)
-                    {
-                        if(clients[i].ID==(string)cm.data)
-                        {
-                            Console.WriteLine("Removed client ID: " + clients[i].ID);
-                            clients.RemoveAt(i);
-
-                        }
-                    }
+                    clientCount--;
+                    var prevOwner = ownerID;
+                    Sessions.CloseSession((string)cm.data);
+                    
+                    
+                    
 
                     if ((string)cm.data==prevOwner)
                     {
                         Console.WriteLine("Owner disconnected setting new one...");
-                        var cc = new ClientMessage();
-                        cc.action = (int)ACTIONS.SETOWNER;
-
-                        var newOwner = clientList.Where(pv => pv.Value == true).Select(pv => pv.Key).First();
-                        cc.data = newOwner;
-                        ownerID = newOwner;
-
-                        var js = new JavaScriptSerializer().Serialize(cc);
-                        Console.WriteLine(js);
                         
-                        
-                        Sessions.SendTo(js, newOwner);
+
+                        if (Sessions.Count!=0)
+                        {
+                            TryGetNewOwner();
+                        }
+                        else
+                        {
+                            ownerID = "";
+                        }
                     }
                     else
                     {
                         Console.WriteLine("Client disconnected.");
                     }
-                    
-                    
 
                     GetCount();
                     break;
+
+
+                case (int)ACTIONS.CLIENTRESPONDTOCOUNT:
+                    clientCount++;
+                    Console.WriteLine(clientCount + " clients have responded...");
+                    break;
+                
 
             }
 
             
         }
 
+       
+
         private void BroadcastExcept(ACTIONS action, object data)
         {
-            clientList = Sessions.Broadping();
-            foreach (var c in clientList)
+            
+            foreach (var c in Sessions.Sessions)
             {
-                if (c.Key != ownerID)
+                if (c.ID != ownerID)
                 {
-                    //construct our message
-                    var msg = new ClientMessage();
-                    msg.action = (int)action;
-                    msg.data = data;
-
-                    //serialize and send
-                    var json = new JavaScriptSerializer().Serialize(msg);
-                    Sessions.SendTo(json, c.Key);
+                    
+                    Sessions.SendTo(ConstructMessage(action, data), c.ID);
                 }
             }
             
             
+        }
+
+        private void TryGetNewOwner()
+        {
+            foreach(var c in Sessions.Sessions)
+            {
+                IWebSocketSession s;
+
+                if(Sessions.TryGetSession(c.ID, out s))
+                {
+                    
+
+                    ownerID = s.ID;
+
+                    
+                    Sessions.SendTo(ConstructMessage(ACTIONS.SETOWNER, s.ID), s.ID);
+                    return;
+                }
+            }
+        }
+
+        private string ConstructMessage(ACTIONS action, object data)
+        {
+            var cc = new ClientMessage();
+            cc.action = (int)action;
+            cc.data = data;
+
+            var json = new JavaScriptSerializer().Serialize(cc);
+            return json;
+
         }
 
         

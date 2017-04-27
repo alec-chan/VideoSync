@@ -39,8 +39,10 @@ namespace VideoSync
         SENDCHAT,       //client->server
         BROADCASTCHAT,  //server->others
 
-        DISCONNECTED,    //client->server
-        CONNECTED,        //server->client
+        DISCONNECTED,       //client->server
+        CONNECTED,          //server->client
+        REQUESTCOUNT,       //server->clients
+        CLIENTRESPONDTOCOUNT //owner-> server
     }
 
     public class Client
