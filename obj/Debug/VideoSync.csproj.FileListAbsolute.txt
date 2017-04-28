@@ -1,12 +1,23 @@
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.exe.config
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.csprojResolveAssemblyReference.cache
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.exe
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.pdb
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\websocket-sharp.dll
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\bin\Debug\websocket-sharp.xml
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.exe
-c:\users\alec\documents\visual studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.pdb
-C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.exe.manifest
-C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\bin\Debug\VideoSync.application
-C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.exe.manifest
-C:\Users\alec\Documents\Visual Studio 2015\Projects\VideoSync\VideoSync\obj\Debug\VideoSync.application
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/bin/Debug/VideoSync.exe.config
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/obj/Debug/VideoSync.csprojResolveAssemblyReference.cache
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/bin/Debug/VideoSync.exe
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/bin/Debug/VideoSync.pdb
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/bin/Debug/websocket-sharp.dll
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/bin/Debug/websocket-sharp.xml
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/obj/Debug/VideoSync.exe
+c:/users/alec/documents/visual studio 2015/Projects/VideoSync/VideoSync/obj/Debug/VideoSync.pdb
+C:/Users/alec/Documents/Visual Studio 2015/Projects/VideoSync/VideoSync/bin/Debug/VideoSync.exe.manifest
+C:/Users/alec/Documents/Visual Studio 2015/Projects/VideoSync/VideoSync/bin/Debug/VideoSync.application
+C:/Users/alec/Documents/Visual Studio 2015/Projects/VideoSync/VideoSync/obj/Debug/VideoSync.exe.manifest
+C:/Users/alec/Documents/Visual Studio 2015/Projects/VideoSync/VideoSync/obj/Debug/VideoSync.application
+/Users/alec/VideoSync/bin/Debug/VideoSync.exe.config
+/Users/alec/VideoSync/bin/Debug/VideoSync.exe.manifest
+/Users/alec/VideoSync/bin/Debug/VideoSync.application
+/Users/alec/VideoSync/bin/Debug/VideoSync.exe
+/Users/alec/VideoSync/bin/Debug/VideoSync.pdb
+/Users/alec/VideoSync/bin/Debug/websocket-sharp.xml
+/Users/alec/VideoSync/obj/Debug/VideoSync.csprojResolveAssemblyReference.cache
+/Users/alec/VideoSync/obj/Debug/VideoSync.csproj.VideoSync.exe.config
+/Users/alec/VideoSync/obj/Debug/VideoSync.csproj.CoreCompileInputs.cache
+/Users/alec/VideoSync/obj/Debug/VideoSync.exe
+/Users/alec/VideoSync/obj/Debug/VideoSync.pdb

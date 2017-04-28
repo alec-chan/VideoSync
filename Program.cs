@@ -20,11 +20,18 @@ namespace VideoSync
             roomCodes = new List<string>();
             var httpsv = new HttpServer(80);
 
-            // To resolve to wait for socket in TIME_WAIT state.
-            //httpsv.ReuseAddress = true;
 
-            // Set the document root path.
-            var reader = new System.Configuration.AppSettingsReader();
+			var timer = new System.Threading.Timer((e) =>
+			{
+				CleanSocketServices(httpsv);
+			}, null, 0, (int)TimeSpan.FromMinutes(1).TotalMilliseconds);
+
+
+			// To resolve to wait for socket in TIME_WAIT state.
+			//httpsv.ReuseAddress = true;
+
+			// Set the document root path.
+			var reader = new System.Configuration.AppSettingsReader();
             httpsv.RootPath = (string)reader.GetValue("RootPath", typeof(string));
 
             // Set the HTTP GET request event.
@@ -46,6 +53,7 @@ namespace VideoSync
                         var newCode = RandomString(5);
                         roomCodes.Add(newCode);
                         httpsv.AddWebSocketService<Server>("/" + newCode);
+						Console.WriteLine("Created socket service on path: " + newCode);
                         res.Redirect((req.Url.GetLeftPart(UriPartial.Authority) +"/"+ newCode));
                     }
                 }
@@ -57,6 +65,7 @@ namespace VideoSync
                     var newCode = RandomString(5);
                     roomCodes.Add(newCode);
                     httpsv.AddWebSocketService<Server>("/" + newCode);
+					Console.WriteLine("Created socket service on path: " + newCode);
                     res.Redirect(req.Url+ newCode);
                 }
 
@@ -119,5 +128,30 @@ namespace VideoSync
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+		public static void CleanSocketServices(HttpServer http)
+		{
+			Console.WriteLine("Cleaning empty socket services...");
+			List<string> removecodes = new List<string>();
+			foreach(string s in roomCodes)
+			{
+				WebSocketServiceHost wsh;
+				if(http.WebSocketServices.TryGetServiceHost("/"+s, out wsh))
+				{
+					if(wsh.Sessions.Count==0)
+					{
+						http.RemoveWebSocketService("/"+s);
+						removecodes.Add(s);
+						Console.WriteLine("Removed service code: " + s);
+					}
+				}
+			}
+			foreach(string s in removecodes)
+			{
+				roomCodes.Remove(s);
+			}
+		}
+
+
     }
 }

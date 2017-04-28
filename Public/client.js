@@ -27,8 +27,7 @@ var ACTIONS = {
 };
 
 if (!owner) {
-    video.off("pause");
-    video.off("play");
+
     video.off("seeked");
 }
 
