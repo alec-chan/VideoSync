@@ -84,33 +84,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Public\assets\fonts\fontawesome-webfont.eot" />
-    <None Include="Public\assets\fonts\fontawesome-webfont.ttf" />
-    <None Include="Public\assets\fonts\fontawesome-webfont.woff" />
-    <None Include="Public\assets\fonts\fontawesome-webfont.woff2" />
-    <None Include="Public\assets\fonts\FontAwesome.otf" />
-    <None Include="Public\assets\sass\base\_page.scss" />
-    <None Include="Public\assets\sass\base\_typography.scss" />
-    <None Include="Public\assets\sass\components\_box.scss" />
-    <None Include="Public\assets\sass\components\_button.scss" />
-    <None Include="Public\assets\sass\components\_form.scss" />
-    <None Include="Public\assets\sass\components\_icon.scss" />
-    <None Include="Public\assets\sass\components\_image.scss" />
-    <None Include="Public\assets\sass\components\_list.scss" />
-    <None Include="Public\assets\sass\components\_section.scss" />
-    <None Include="Public\assets\sass\components\_spotlight.scss" />
-    <None Include="Public\assets\sass\components\_table.scss" />
-    <None Include="Public\assets\sass\components\_wrapper.scss" />
-    <None Include="Public\assets\sass\ie8.scss" />
-    <None Include="Public\assets\sass\ie9.scss" />
-    <None Include="Public\assets\sass\layout\_footer.scss" />
-    <None Include="Public\assets\sass\layout\_header.scss" />
-    <None Include="Public\assets\sass\layout\_main.scss" />
-    <None Include="Public\assets\sass\libs\_functions.scss" />
-    <None Include="Public\assets\sass\libs\_mixins.scss" />
-    <None Include="Public\assets\sass\libs\_skel.scss" />
-    <None Include="Public\assets\sass\libs\_vars.scss" />
-    <None Include="Public\assets\sass\main.scss" />
+    <None Include="Public\.DS_Store" />
+    <None Include="Public\dist\.DS_Store" />
     <None Include="VideoSync_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -126,22 +101,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Public\assets\css\font-awesome.min.css" />
-    <Content Include="Public\assets\css\ie8.css" />
-    <Content Include="Public\assets\css\ie9.css" />
-    <Content Include="Public\assets\css\images\overlay.png" />
-    <Content Include="Public\assets\css\main.css" />
-    <Content Include="Public\assets\fonts\fontawesome-webfont.svg" />
-    <Content Include="Public\assets\js\ie\html5shiv.js" />
-    <Content Include="Public\assets\js\ie\PIE.htc" />
-    <Content Include="Public\assets\js\ie\respond.min.js" />
-    <Content Include="Public\assets\js\jquery.min.js" />
-    <Content Include="Public\assets\js\jquery.scrolly.min.js" />
-    <Content Include="Public\assets\js\main.js" />
-    <Content Include="Public\assets\js\skel.min.js" />
-    <Content Include="Public\assets\js\util.js" />
     <Content Include="Public\client.js" />
+    <Content Include="Public\css\custom.css" />
+    <Content Include="Public\dist\css\normalize.css" />
+    <Content Include="Public\dist\css\skeleton.css" />
+    <Content Include="Public\dist\images\favicon.png" />
     <Content Include="Public\index.html" />
+    <Content Include="Public\Youtube.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

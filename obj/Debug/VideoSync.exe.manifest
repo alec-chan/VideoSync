@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VideoSync.exe" size="11736">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VideoSync.exe" size="12760">
       <assemblyIdentity name="VideoSync" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pvTjNI/htfFo61ih6nG/GK49bYj/pKXRKUqD5xWxKxs=</dsig:DigestValue>
+        <dsig:DigestValue>5yD8SexEiit1kD7fxzIElaMlcluZymQt8216CsG0mA4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -65,148 +65,67 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Public\assets\css\font-awesome.min.css" size="29063">
+  <file name="Public\client.js" size="3937">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA=</dsig:DigestValue>
+      <dsig:DigestValue>onXYMNYgNB/C/iG79FBVnJvMrHJsvwqtmdamit+A6Gw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\assets\css\ie8.css" size="1568">
+  <file name="Public\css\custom.css" size="4885">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>neBPr85tjGQpiJZLOu2vXYUHA5HD/DWwR9+FX3iqpcI=</dsig:DigestValue>
+      <dsig:DigestValue>jf/wWMUMJTLuUKGOwabJ1kBfLEU0t2u55P17Q3PvgxY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\assets\css\ie9.css" size="749">
+  <file name="Public\dist\css\normalize.css" size="8223">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>N1i9Byy/31LYBbm9mUSKbphRT3GQ+Er33O75OzzhYtk=</dsig:DigestValue>
+      <dsig:DigestValue>BVOVsBISRV4uPPF0IIlH7zRxELCg2HEPCXI3aY2O7is=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\assets\css\images\overlay.png" size="14920">
+  <file name="Public\dist\css\skeleton.css" size="11870">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AKEsEjfK/lVGOUAkaTj6HG07YpSC74vrZ3JhMVmHZZs=</dsig:DigestValue>
+      <dsig:DigestValue>dUruUX2rfF9vd/lE1D6F407RLUmbwEPW6yJKQVmq6Yw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\assets\css\main.css" size="76052">
+  <file name="Public\dist\images\favicon.png" size="1156">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RDNgJA2E6kLNkFcHZdz1ViO+8QUlTN2nTHpt8n0lnHo=</dsig:DigestValue>
+      <dsig:DigestValue>zos1XSztZp7YV4/azO1VFZPwWAkrHeWOcSzPFQRbjrs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\assets\fonts\fontawesome-webfont.svg" size="391622">
+  <file name="Public\index.html" size="3787">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>jjWGOJu0zQGz+FuztiJzm95mJ/KLumOgIMIjypzxua4=</dsig:DigestValue>
+      <dsig:DigestValue>dM4xsSOaz1pSQMx2rbCt/YFN0wCiEyD2l5J5ghdc+04=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Public\assets\js\ie\html5shiv.js" size="2380">
+  <file name="Public\Youtube.js" size="18447">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fYxWn3LOabDLrmCjRnJBbdxBqr1Y34uIlyh1Dx9p0rw=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\ie\PIE.htc" size="41041">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>f0YKsALxv77ZU9HNEAylFf1FP7wHbGc3ckqeSHWHXZY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\ie\respond.min.js" size="4591">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ggacFe3WlD36pZ9aw/asyG/USij+kl5BDM3K3sGUqLo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\jquery.min.js" size="95957">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\jquery.scrolly.min.js" size="831">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>i2Vx6iw2Mf9Qu0uW5/kIHG4z66re+csspZVdXgtiWgI=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\main.js" size="1329">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>p03FveSmzvDqbSyZ6zLv0suPaRCXJhEujj/QACsLXaU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\skel.min.js" size="9085">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>3e+NvOq+D/yeJy1qrWpYkEUr6SlOCL5mHpc2nZfX74E=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\assets\js\util.js" size="12433">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>wuHnKw3jVvbOGE469PqKtlkKJYEWKQWifXeIay2WDgA=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\client.js" size="3723">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>m+rumF0Xx69mHuZvQZbxgBKSYIzrSBZwGPnZcS6zjfw=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Public\index.html" size="2709">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>81ERF3gcZ68YwVJL56qkBqJUl7KhUcV0/A0UxtouzcY=</dsig:DigestValue>
+      <dsig:DigestValue>DpdvmwZQdpzWY1U0roVlG8obcWC/X3P5CH2p9wK2o8Y=</dsig:DigestValue>
     </hash>
   </file>
   <file name="VideoSync.exe.config" size="272">
