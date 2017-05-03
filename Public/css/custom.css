@@ -88,6 +88,15 @@ body {
   width: 100%;
   text-align: right;
 }
+.faqcontent {
+    margin: 0 auto;
+    max-width: 768px;
+    width: 100%;
+    text-align: left;
+}
+#headerid2 {
+    text-align: right;
+}
 /* Hero
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .phones {

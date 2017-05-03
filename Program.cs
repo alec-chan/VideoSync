@@ -68,8 +68,12 @@ namespace VideoSync
 					Console.WriteLine("Created socket service on path: " + newCode);
                     res.Redirect(req.Url+ newCode);
                 }
+				else if (path=="/faq")
+				{
+					path = "/faq.html";
+				}
 
-                var content = httpsv.GetFile(path);
+					var content = httpsv.GetFile(path);
 
                 if (content == null)
                 {

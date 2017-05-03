@@ -87,6 +87,7 @@
     <None Include="Public\.DS_Store" />
     <None Include="Public\dist\.DS_Store" />
     <None Include="VideoSync_TemporaryKey.pfx" />
+    <None Include="Public\faq.html" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

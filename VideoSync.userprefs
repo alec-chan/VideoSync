@@ -1,8 +1,11 @@
 ﻿<Properties StartupConfiguration="{511D3C6E-76C5-4137-B954-9D9231EF8C18}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Public/css/custom.css">
     <Files>
-      <File FileName="Program.cs" Line="132" Column="42" />
+      <File FileName="Program.cs" Line="64" Column="42" />
       <File FileName="Server.cs" Line="19" Column="32" />
+      <File FileName="Public/index.html" Line="49" Column="74" />
+      <File FileName="Public/faq.html" Line="34" Column="35" />
+      <File FileName="Public/css/custom.css" Line="91" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
