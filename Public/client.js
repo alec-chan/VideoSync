@@ -124,10 +124,15 @@ function processEvent(event)
 
             DragDrop('body', function (files) {
                 if(files.length==1&&files[0].name.endsWith('.mp4')){
+                    if(client.torrents.length>0)
+                    {
+                        client.remove(client.torrents[0]);
+                    }
                     client.seed(files, function (torrent) {
                         var torrentID = torrent.magnetURI;
                         console.log('Client is seeding ' + torrent.magnetURI)
                         document.getElementById("url").value = torrentID;
+                        
                         addFromTorrent(torrent);
                         seturl(true);
                     })
@@ -255,6 +260,10 @@ function parseurl(url, exceptTorrent)
                 {
                     case "bittorrent":
                         if(!exceptTorrent){
+                            if(client.torrents.length>0)
+                            {
+                                client.remove(client.torrents[0]);
+                            }
                             client.add(url, function (torrent) {
                                 addFromTorrent(torrent);
                             });
