@@ -1,1 +1,2 @@
-mono bin/Debug/VideoSync.exe
+cd bin/Debug/
+sudo mono VideoSync.exe
