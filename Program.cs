@@ -52,7 +52,9 @@ namespace VideoSync
                         path = "/index.html";
                         var newCode = RandomString(5);
                         roomCodes.Add(newCode);
-                        httpsv.AddWebSocketService<Server>("/" + newCode);
+                        httpsv.AddWebSocketService<Server>("/" + newCode, () => new Server () {
+                                                                    IgnoreExtensions = true
+                                                                });
 						Console.WriteLine("Created socket service on path: " + newCode);
                         res.Redirect((req.Url.GetLeftPart(UriPartial.Authority) +"/"+ newCode));
                     }
@@ -64,7 +66,9 @@ namespace VideoSync
                     path = "/index.html";
                     var newCode = RandomString(5);
                     roomCodes.Add(newCode);
-                    httpsv.AddWebSocketService<Server>("/" + newCode);
+                    httpsv.AddWebSocketService<Server>("/" + newCode, () => new Server () {
+                                                                IgnoreExtensions = true
+                                                            });
 					Console.WriteLine("Created socket service on path: " + newCode);
                     res.Redirect(req.Url+ newCode);
                 }

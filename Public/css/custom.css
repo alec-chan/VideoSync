@@ -11,6 +11,17 @@
   text-align: center;
 }
 
+body.drag:before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(#F8283B, 0.3);
+  border: 5px #F8283B dashed;
+}
+
 .tooltip {
     display: inline;
     position: relative;
@@ -45,9 +56,14 @@
     padding: 0px;
 }
 .one {
-    width: 30%;
-
+    width: 50%;
+    text-align: left;
     float: left;
+    line-height: 20px;
+}
+
+#tag {
+  line-height: 10px;
 }
 .two {
     margin-left: 0%;

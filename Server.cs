@@ -116,15 +116,10 @@ namespace VideoSync
                     clientCount--;
                     var prevOwner = ownerID;
                     Sessions.CloseSession((string)cm.data);
-                    
-                    
-                    
 
                     if ((string)cm.data==prevOwner)
                     {
                         Console.WriteLine("Owner disconnected setting new one...");
-                        
-
                         if (Sessions.Count!=0)
                         {
                             TryGetNewOwner();

@@ -5,9 +5,17 @@ var defColor = document.getElementById("headerid").style.color;
 var socket = new WebSocket('ws://' + window.location.hostname+':80'+ path);
 var video = videojs('video');
 
+
 var client_id;
 var owner = false;
 
+
+
+////////////////////////////
+//ACTIONS mapping -- very critical, 
+//this dict has to match exactly with 
+//the enum in the server code
+////////////////////////////
 var ACTIONS = {
     SETURL: 0,
     BROADCASTURL: 1,
@@ -26,35 +34,44 @@ var ACTIONS = {
     CLIENTRESPONDTOCOUNT: 14
 };
 
-if (!owner) {
+var client = new WebTorrent();
 
+
+
+///dont allow clients to seek
+if (!owner) {
     video.off("seeked");
 }
 
 video.autoplay(true);
 
-video.on("timeupdate", function(){
 
-});
-
+///sync interval
 setInterval(function () {
     if (owner) {
         sendMessage(ACTIONS.SETTIME, video.currentTime());
     }
 },0.05);
 
+
+///recieve ws events and send for processing
 socket.onmessage = function (event) {
     console.log("recieved message: " + event.toString());
     var msg = JSON.parse(event.data);
     processEvent(msg);
 };
 
+
+
+///tell server we are disconnecting
 window.onbeforeunload = function () {
     sendMessage(ACTIONS.DISCONNECTED, client_id);
 };
 
 
 
+
+////Video control event handlers
 video.on("pause", function () {
     if (owner) {
         sendMessage(ACTIONS.REQUESTPAUSE, null);
@@ -75,6 +92,8 @@ video.on("seeked", function () {
 });
 
 
+
+//send websocket message
 function sendMessage(_action, _data)
 {
     var msg = {
@@ -85,16 +104,9 @@ function sendMessage(_action, _data)
     socket.send(JSON.stringify(msg));
 }
 
-/* Set the width of the side navigation to 250px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-}
 
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
 
+///Process a recieved websocket event
 function processEvent(event)
 {
     
@@ -108,14 +120,29 @@ function processEvent(event)
             console.log("I am the owner");
             console.log("ID: " + client_id);
             document.getElementById("code").value = href;
-            //document.getElementById("myid").innerHTML = "You are the owner";
+            document.getElementById("seturl").addEventListener("click", function(event){seturl();});
+
+            DragDrop('body', function (files) {
+                if(files.length==1&&files[0].name.endsWith('.mp4')){
+                    client.seed(files, function (torrent) {
+                        var torrentID = torrent.magnetURI;
+                        console.log('Client is seeding ' + torrent.magnetURI)
+                        document.getElementById("url").value = torrentID;
+                        addFromTorrent(torrent);
+                        seturl(true);
+                    })
+                }
+                else
+                {
+                    alert("We don't support multi-file upload or files other than .mp4, sorry!");
+                }
+            });
+
             break;
         case ACTIONS.BROADCASTURL:
-            
-            if (event.data.includes("youtube"))
-                video.src({ type: "video/youtube", src: event.data });
-            else
-                video.src(event.data);
+            document.getElementById("url").value=event.data;
+            //send the recieved url to our url parser
+            parseurl(event.data);
             video.currentTime(0);
             break;
         case ACTIONS.BROADCASTPAUSE:
@@ -131,13 +158,14 @@ function processEvent(event)
                 }
             }
             break;
+        //when connected as a client
         case ACTIONS.CONNECTED:
             client_id = event.data;
             owner = false;
             console.log("I am a client");
             console.log("ID: " + client_id);
             document.getElementById("tool").setAttribute("data-attr", "You are a client - you have no control over the video, just sit back and enjoy!");
-            //document.getElementById("myid").innerHTML = "You are a client";
+
             document.getElementById("code").value = href;
             break;
         case ACTIONS.REQUESTCOUNT:
@@ -146,7 +174,9 @@ function processEvent(event)
     }
 }
 
-function seturl()
+
+//handles the owner setting the url
+function seturl(except=false)
 {
     var url = document.getElementById("url").value;
     
@@ -154,10 +184,103 @@ function seturl()
     if (owner) {
         sendMessage(ACTIONS.SETURL, url);
 
-        if (url.includes("youtube"))
-            video.src({ type: "video/youtube", src: url });
-        else
-            video.src(url);
+
+        //send the url to our parser to be dealt with.
+        parseurl(url, except);
+    }
+}
+
+
+
+
+///////////////////////////////////////////
+//////////                       //////////
+//////////    URL PARSER CODE    //////////
+//////////                       //////////
+///////////////////////////////////////////
+URLTYPES = {
+    "bittorrent": ["magnet:", ".torrent"],
+    "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "video/mp4"],
+    "youtube": ["youtube", "youtu.be"]
+};
+
+function containsAny(file, substrings) {
+    for (var i = 0; i != substrings.length; i++) {
+       var substring = substrings[i];
+       if (file.name.endsWith(substring)) {
+         return file;
+       }
+    }
+    return null; 
+}
+
+function addFromTorrent(torrent)
+{
+     //Torrents can contain many files. Let's use the .mp4 file
+    var file = torrent.files.find(function (file) {
+        //return containsAny(file, URLTYPES["direct"]);
+        return file.name.endsWith('.mp4');
+    });
+
+    if(file==null)
+    {
+        alert("Direct upload and torrents currently only play .mp4 files. Sorry!");
+        return;
+    }
+    console.log(file);
+
+    file.getBlobURL(function (err, url) {
+        if (err) return util.error(err)
+        video.src({
+            src: url,
+            type: 'video/mp4'
+        });
+        
+    })
+}
+function parseurl(url, exceptTorrent)
+{
+    console.log("parsing url...");
+    for(var key in URLTYPES)
+    {
+        console.log("trying key: "+key);
+        for(var i in URLTYPES[key])
+        {
+            console.log("trying to match extension: "+URLTYPES[key][i]);
+            if(url.includes(URLTYPES[key][i]))
+            {
+                
+                console.log("Detected url type: "+key);
+                switch(key)
+                {
+                    case "bittorrent":
+                        if(!exceptTorrent){
+                            client.add(url, function (torrent) {
+                                addFromTorrent(torrent);
+                            });
+                        }
+                        break;
+                        
+                    case "youtube":
+                        video.src({ type: "video/youtube", src: url });
+                        break;
+
+                    case "direct":
+                        if(URLTYPES[key][i]=="video/mp4")
+                        {
+                            video.src({ type: "video/mp4", src: url });
+                        }
+                        else
+                        {
+                            video.src({ type: "video/"+i.substr(1), src: url });
+                        }
+                        
+                        break;
+                }
+                return;
+            }
+        }
+        
     }
 }
 
