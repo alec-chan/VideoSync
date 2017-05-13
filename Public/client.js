@@ -281,7 +281,8 @@ function parseurl(url, exceptTorrent)
                         }
                         else
                         {
-                            video.src({ type: "video/"+i.substr(1), src: url });
+                            //console.log("video/"+URLTYPES[key][i].slice(1));
+                            video.src({ type: "video/"+URLTYPES[key][i].slice(1), src: url });
                         }
                         
                         break;
