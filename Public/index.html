@@ -33,6 +33,9 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="../../dist/images/favicon.png">
 
+  <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+  <script src="node_modules/drag-drop/dragdrop.min.js"></script>
+  
 </head>
 <body>
 
@@ -60,9 +63,9 @@
                 <br/>
 
                 <section class="container">
-                  <div class="one"><h5>made by <a href="https://alecchan.org/">alec chan</a></h5></div>
+                  <div id="left" class="one"><h5 id="tag">made by <a href="https://alecchan.org/">alec chan</a></h5>Powered by <a href="http://videojs.com/">VideoJS</a> and <a href="https://webtorrent.io/">WebTorrent</a>.</div>
                   <div class="two"><input id="url" type="text">
-                <a class="button button-primary" onclick="seturl()">Set URL</a></div>
+                <a class="button button-primary" id="seturl">Set URL</a></div>
                 </section>
                 
                 
@@ -80,7 +83,7 @@
       <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
       <script src="Youtube.js"></script>
       <script type="text/javascript" src="client.js"></script>
-
+      <script src="dist/videojs-contrib-media-sources.js"></script>
 
 
 <!-- End Document
