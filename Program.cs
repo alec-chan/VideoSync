@@ -31,8 +31,7 @@ namespace VideoSync
 			//httpsv.ReuseAddress = true;
 
 			// Set the document root path.
-			var reader = new System.Configuration.AppSettingsReader();
-            httpsv.RootPath = (string)reader.GetValue("RootPath", typeof(string));
+            httpsv.RootPath = "../../Public";
 
             // Set the HTTP GET request event.
             httpsv.OnGet += (sender, e) => {

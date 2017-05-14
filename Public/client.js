@@ -104,7 +104,13 @@ function sendMessage(_action, _data)
     socket.send(JSON.stringify(msg));
 }
 
+function insertWelcome()
+{
+    var poster = document.getElementsByClassName("vjs-poster")[0];
+    poster.innerHTML="<h4 id='welcomemsg'>Welcome!</h4><ol id='welcomelist'><li>Load a video by pasting a video url into the Set URL box or drag and drop a .mp4 file from your computer onto the page.</li><li>Share your room code with friends.</li><li>Enjoy watching your video with friends!</li></ol>";
+    document.getElementById("welcomemsg").style.color="#FFC107";
 
+}
 
 ///Process a recieved websocket event
 function processEvent(event)
@@ -121,7 +127,7 @@ function processEvent(event)
             console.log("ID: " + client_id);
             document.getElementById("code").value = href;
             document.getElementById("seturl").addEventListener("click", function(event){seturl();});
-
+            insertWelcome();
             DragDrop('body', function (files) {
                 if(files.length==1&&files[0].name.endsWith('.mp4')){
                     if(client.torrents.length>0)
