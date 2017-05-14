@@ -22,6 +22,28 @@ body.drag:before {
   border: 5px #F8283B dashed;
 }
 
+
+a:link    {
+  /* Applies to all unvisited links */
+  text-decoration:  none;
+
+  } 
+a:visited {
+  /* Applies to all visited links */
+  text-decoration:  none;
+ 
+  } 
+a:hover   {
+  /* Applies to links under the pointer */
+  text-decoration:  underline;
+ 
+  } 
+a:active  {
+  /* Applies to activated links */
+  text-decoration:  underline;
+  
+  } 
+
 .tooltip {
     display: inline;
     position: relative;
@@ -105,7 +127,25 @@ body {
 {
     margin-right: 10%;
     margin-left: 10%;
+    text-align: left;
 }
+
+/* Tell the <li> to not display numbers, but keep track of what the numbers should be */
+ol li {
+  counter-increment: list;
+  list-style-type: none;
+  position: relative;
+}
+/* Outout the numbers using the counter() function, but use a custom color, and position the numbers how we want */
+ol li:before {
+  color: #42A5F5;
+  content: counter(list) ".";
+  left:-32px;
+  position: absolute;
+  text-align: right;
+  width: 26px;
+}
+
 .main {
   margin: auto;
   width: 90%;
@@ -180,8 +220,8 @@ body {
   margin-bottom: 4rem;
 }
 
-/*larger than 620*/
-@media (min-width: 620px) {
+/*larger than 716*/
+@media (min-width: 716px) {
     .vjs-poster{
       margin-top: 15%;
       font-size: 21px;

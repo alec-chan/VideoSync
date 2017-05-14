@@ -107,7 +107,7 @@ function sendMessage(_action, _data)
 function insertWelcome()
 {
     var poster = document.getElementsByClassName("vjs-poster")[0];
-    poster.innerHTML="<h4 id='welcomemsg'>Welcome!</h4><ol id='welcomelist'><li>Load a video by pasting a video url into the Set URL box or drag and drop a .mp4 file from your computer onto the page.</li><li>Share your room code with friends.</li><li>Enjoy watching your video with friends!</li></ol>";
+    poster.innerHTML="<h4 id='welcomemsg'>Welcome!</h4><ol id='welcomelist'><li>Load a video by pasting a video url into the Set URL box or drag and drop a .mp4 file from your computer onto the page.</li><li>Share your room code with friends.</li><li>Enjoy watching your video with friends!</li><li>If something goes wrong, just click the sync.theater link at the top to generate a new room.</li></ol>";
     document.getElementById("welcomemsg").style.color="#FFC107";
 
 }
