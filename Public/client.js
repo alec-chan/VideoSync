@@ -220,7 +220,7 @@ URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
     "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "video/mp4"],
     "youtube": ["youtube", "youtu.be"],
-    "crunchyroll": ["crunchyroll.com"]
+    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
 };
 
 function containsAny(file, substrings) {
