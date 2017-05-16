@@ -5,7 +5,7 @@ var defColor = document.getElementById("headerid").style.color;
 var socket = new WebSocket('ws://' + window.location.hostname+':80'+ path);
 var video = videojs('video');
 
-
+var xhr = new XMLHttpRequest();
 var client_id;
 var owner = false;
 
@@ -127,6 +127,7 @@ function processEvent(event)
             console.log("ID: " + client_id);
             document.getElementById("code").value = href;
             document.getElementById("seturl").addEventListener("click", function(event){seturl();});
+            document.getElementById("setass").addEventListener("click", function(event){setass();});
             insertWelcome();
             DragDrop('body', function (files) {
                 if(files.length==1&&files[0].name.endsWith('.mp4')){
@@ -185,6 +186,12 @@ function processEvent(event)
     }
 }
 
+//adds 
+function setass()
+{
+    var url = document.getElementById("assurl").value;
+    video.ass({src: url});
+}
 
 //handles the owner setting the url
 function seturl(except=false)
@@ -212,7 +219,8 @@ function seturl(except=false)
 URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
     "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "video/mp4"],
-    "youtube": ["youtube", "youtu.be"]
+    "youtube": ["youtube", "youtu.be"],
+    "crunchyroll": ["crunchyroll.com"]
 };
 
 function containsAny(file, substrings) {
@@ -289,9 +297,31 @@ function parseurl(url, exceptTorrent)
                         {
                             //console.log("video/"+URLTYPES[key][i].slice(1));
                             video.src(url);
+
+                            
                         }
                         
                         break;
+                    case "crunchyroll":
+                        
+                        xhr.onreadystatechange = function () {
+                            console.log("Got response "+this.readyState+" from URL parser server...");
+                            if (this.readyState != 4) return;
+                            console.log("Got HTTP status "+this.status+" from URL parser server...");
+                            if (this.status == 200) {
+                                
+                                var data = JSON.parse(this.responseText);
+
+                                video.src({type: "application/x-mpegURL", src: data["unenc-url"]});
+                            }
+
+                            // end of state change: it can be after some time (async)
+                        };
+                        xhr.open("POST", "http://"+window.location.hostname+":8080", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                        xhr.send("enc-url="+url);
+
+
                 }
                 return;
             }
