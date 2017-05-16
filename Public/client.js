@@ -302,7 +302,7 @@ function parseurl(url, exceptTorrent)
                         }
                         
                         break;
-                    case "crunchyroll":
+                    case "livestream":
                         
                         xhr.onreadystatechange = function () {
                             console.log("Got response "+this.readyState+" from URL parser server...");
