@@ -127,7 +127,7 @@ function processEvent(event)
             console.log("ID: " + client_id);
             document.getElementById("code").value = href;
             document.getElementById("seturl").addEventListener("click", function(event){seturl();});
-            document.getElementById("setass").addEventListener("click", function(event){setass();});
+            //document.getElementById("setass").addEventListener("click", function(event){setass();});
             insertWelcome();
             DragDrop('body', function (files) {
                 if(files.length==1&&files[0].name.endsWith('.mp4')){
