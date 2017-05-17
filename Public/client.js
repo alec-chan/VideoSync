@@ -10,7 +10,7 @@ var client_id;
 var owner = false;
 
 
-
+var namelength = 8;
 ////////////////////////////
 //ACTIONS mapping -- very critical, 
 //this dict has to match exactly with 
@@ -31,7 +31,8 @@ var ACTIONS = {
     DISCONNECTED: 11,
     CONNECTED: 12,
     REQUESTCOUNT: 13,
-    CLIENTRESPONDTOCOUNT: 14
+    CLIENTRESPONDTOCOUNT: 14,
+    BROADCASTCOUNT: 15
 };
 
 var client = new WebTorrent();
@@ -57,7 +58,7 @@ setInterval(function () {
 
 ///recieve ws events and send for processing
 socket.onmessage = function (event) {
-    console.log("recieved message: " + event.toString());
+    console.log("recieved message: " + event.action +":" + event.data);
     var msg = JSON.parse(event.data);
     processEvent(msg);
 };
@@ -127,7 +128,8 @@ function chat_add_message(msg, me)
     if(msg==""){return;}
     var message = msg;
     var align = me?"text-align: right;":"text-align: left;";
-    var chat = "<div class='msg_container' style='"+align+"'><div class='message'><p>"+message+"</p></div></div>";
+    var color = me?" background-color: #000;":"background-color: #424242;";
+    var chat = "<div class='msg_container' style='"+align+"'><div class='message' style='"+color+"'><p>"+message+"</p></div></div>";
     
     $("#chat_area").append(chat);
     $(".message").Emoji();
@@ -136,14 +138,22 @@ function chat_add_message(msg, me)
 }
 
 var last_message_sent;
-
+var myname=owner?"owner":"client";
 $("#chat_msg_box").on('keyup', function (e) {
     if (e.keyCode == 13) {
         if($("#chat_msg_box").val()==""){return;}
-        chat_add_message($("#chat_msg_box").val(), true);
-        last_message_sent=$("#chat_msg_box").val();
+        last_message_sent=myname+': '+$("#chat_msg_box").val();
+        chat_add_message(last_message_sent, true);
+        
         sendMessage(ACTIONS.SENDCHAT, last_message_sent);
         $("#chat_msg_box").val("");
+    }
+});
+
+$("#name").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        myname=$("#name").val().slice(0,9);
+        $("#name").attr("readonly",true);
     }
 });
 ///// END CHAT STUFF
@@ -266,6 +276,9 @@ function processEvent(event)
             {
                 chat_add_message(event.data, false);
             }
+            break;
+        case ACTIONS.BROADCASTCOUNT:
+            
             break;
     }
 }

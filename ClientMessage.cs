@@ -42,7 +42,8 @@ namespace VideoSync
         DISCONNECTED,       //client->server
         CONNECTED,          //server->client
         REQUESTCOUNT,       //server->clients
-        CLIENTRESPONDTOCOUNT //owner-> server
+        CLIENTRESPONDTOCOUNT, //owner-> server
+        BROADCASTCOUNT
     }
 
     public class Client

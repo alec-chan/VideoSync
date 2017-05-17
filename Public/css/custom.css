@@ -22,8 +22,8 @@
 .chat_box {
   background: #fff;
 
-  width: 17%;
-  height: 40%;
+  width: 22%;
+  height: 50%;
   position: fixed;
   bottom: 0px;
   right: 60px;
@@ -38,13 +38,13 @@
 }
 
 #chat_msg_box{
-  width: 100%;
+  width: 85%;
   color: #000;
 }
 .chatbox{
   bottom:0px;
   width: 100%;
-  height: 30%;
+  height: 0%;
 
   
 }
@@ -55,7 +55,7 @@
   text-align: center;
   text-decoration: none;
   display: block;
-  height: 70%;
+  height: 65%;
   bottom: 0px;
   padding: 5px 5px 15px;
   overflow: scroll;
@@ -76,11 +76,12 @@
 }
 
 .chatheader {
+
   margin: 0 auto;
   padding: 0 10px;
-  height: 35px;
-  line-height: 35px;
-  font-size: 18px;
+  height: 20%;
+  line-height: 20px;
+  font-size: 15px;
   font-weight: 700;
   color: #616161;
   text-align: center;

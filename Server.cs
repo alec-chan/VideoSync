@@ -19,6 +19,7 @@ namespace VideoSync
         private void GetCount()
         {
             Console.WriteLine("Connected clients: " + Sessions.Count);
+            Sessions.Broadcast(ConstructMessage(ACTIONS.BROADCASTCOUNT, Sessions.Count));
         }
 
         protected override void OnOpen()
@@ -33,7 +34,7 @@ namespace VideoSync
 
 
                 Console.WriteLine("Client connected with ID: " + s.ID);
-                
+                GetCount();
                 Console.WriteLine("");
                 //tell the owner that they are the owner
                 if (Sessions.Count==1)
