@@ -81,7 +81,7 @@ def extract_stream(stream_url):
 
 def run(server_class=HTTPServer, handler_class=Server, port=8080):
     """Call to initialize and run the server"""
-    server_address = ('sync.theater', port)
+    server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print 'Starting httpd...'
     httpd.serve_forever()

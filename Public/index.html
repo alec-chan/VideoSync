@@ -25,7 +25,9 @@
 
   <!-- Scripts
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
   <link href="http://vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">
   <!-- If you'd like to support IE8 -->
   <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
@@ -38,8 +40,8 @@
   
   <link rel="stylesheet" href="node_modules/videojs-ass/src/videojs.ass.css"></script>
   <script src="https://use.fontawesome.com/d244c2f21f.js"></script>
-
-
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/js/emojify.min.js"></script>
 
   <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
   <script src="dist/Youtube.js"></script>
@@ -47,51 +49,53 @@
   <script src="node_modules/libjass/libjass.js"></script>
   <script src="dist/videojs-contrib-hls.min.js"></script>
   <script src="dist/videojs-contrib-media-sources.js"></script>
+  <link rel="stylesheet" type="text/css" href="jq-emoji/css/jquery.emojipicker.css">
+  <script type="text/javascript" src="jq-emoji/js/jquery.emojipicker.js"></script>
 
+  <!-- Emoji Data -->
+  <link rel="stylesheet" type="text/css" href="jq-emoji/css/jquery.emojipicker.a.css">
+  <script type="text/javascript" src="jq-emoji/js/jquery.emojis.js"></script>
+  <script src="jquery-emoji/js/jQueryEmoji.js"></script>
+  <script src="node_modules/enquire.js/dist/enquire.min.js"></script>
 </head>
 <body>
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-        <div class="main">
-
-          <div class="wrapper">
-             <div class="videocontent">
-                
-                  
-                      <div id="tool" class="tooltip" data-attr="">
-                        <a href="http://sync.theater/" style="text-decoration: none;"><h1 id="headerid" class="title">sync.theater</h1></a>
-                        <span data-attr="More"></span>
-                    </div>
-           
-                  Share your room code! <input type="text" onclick="this.select();" id="code" readonly /> <a class="button button-primary" href="/faq" target="_blank">FAQ</a>
-
-                <video id="video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" width="768" height="432" poster="" data-setup='{"techOrder": ["html5", "youtube"], "fluid": true}'>
-                  
-                </video>
-                <br/>
-
-                <section class="container">
-                  <div id="left" class="one"><h5 id="tag">made by <a href="https://alecchan.org/">alec chan</a></h5><i class="fa fa-bolt fa-lg"></i> Powered by <a href="http://videojs.com/">VideoJS</a> and <a href="https://webtorrent.io/">WebTorrent</a>.</div>
-                  <div class="two"><input id="url" type="text" placeholder="your video url goes here">
-                <a class="button button-primary" id="seturl">Set URL</a></div>
-                </section>
-                
-                
-                
-             </div>
-            </div>
-
+  <div class="main">
+    <div class="wrapper">
+        <div class="videocontent">
           
-        </div>
-        </p>
-      </div>
+            
+          <div id="tool" class="tooltip" data-attr="">
+            <a href="http://sync.theater/" style="text-decoration: none;"><h1 id="headerid" class="title">sync.theater</h1></a>
+            <span data-attr="More"></span>
+          </div>
+      
+          Share your room code! <input type="text" onclick="this.select();" id="code" readonly /> <a class="button button-primary" href="/faq" target="_blank">FAQ</a>
 
+          <video id="video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" width="768" height="432" poster="" data-setup='{"techOrder": ["html5", "youtube"], "fluid": true}'></video>
+          <br/>
+          <section class="container">
+            <div id="left" class="one"><h5 id="tag">made by <a href="https://alecchan.org/">alec chan</a></h5><i class="fa fa-bolt fa-lg"></i> Powered by <a href="http://videojs.com/">VideoJS</a> and <a href="https://webtorrent.io/">WebTorrent</a>.</div>
+            <div class="two"><input id="url" type="text" placeholder="your video url goes here">
+            <a class="button button-primary" id="seturl">Set URL</a></div>
+          </section>
+        </div>
+    </div>
+  </div>
 
   
 
-      <script type="text/javascript" src="client.js"></script>
+  <div class="chat_box" id="chat_box">
+    <div class="chatheader" onclick='chathide()'>Click to hide chat..</div>
+    <div class="pesan_chat" id="chat_area"></div>
+    <div class="chatbox"><input type="text" id="chat_msg_box" placeholder="write a message.."></div>
+  </div>
+
+ 
+  <script type="text/javascript" src="client.js"></script>
 
 
 

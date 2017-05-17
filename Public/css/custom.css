@@ -4,6 +4,110 @@
   border-radius: 100px;
 }
 
+#chatbutton{
+  position: fixed;
+  bottom: 5px;
+  right: 60px;
+  align-content: center;
+  color: #fff;
+  border: none;
+
+}
+
+#chatbutton:hover{
+  color: #bdbdbd;
+}
+
+
+.chat_box {
+  background: #fff;
+
+  width: 17%;
+  height: 40%;
+  position: fixed;
+  bottom: 0px;
+  right: 60px;
+  transition: all .3s;
+  border: 1px solid transparent;
+  border-radius: 3px 3px 0 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0 0 1px 2px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.0980392) 0 0 1px 2px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0 0 1px 2px;
+  overflow: hidden;
+  z-index:900000;
+}
+
+#chat_msg_box{
+  width: 100%;
+  color: #000;
+}
+.chatbox{
+  bottom:0px;
+  width: 100%;
+  height: 30%;
+
+  
+}
+.emojiPickerIconWrap{
+  width:100%;
+}
+.pesan_chat {
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  height: 70%;
+  bottom: 0px;
+  padding: 5px 5px 15px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.message{
+  border: none;
+  background-color: #424242;
+  border-radius: 5px;
+  display: inline-block;
+  word-wrap: break-word;
+
+}
+
+.msg_container{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.chatheader {
+  margin: 0 auto;
+  padding: 0 10px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #616161;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+}
+
+.pesan_chat p {
+  color: #fff;
+  font-size: 16px;
+  margin: 10px;
+}
+
+
+@media (max-width: 430px)
+{
+  .vjs-poster{
+    vertical-align: middle;
+  }
+  #welcomelist{
+    display:none;
+  }
+}
+
+
+
+
 /* Sections
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .section {

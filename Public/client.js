@@ -46,6 +46,7 @@ if (!owner) {
 video.autoplay(true);
 
 
+
 ///sync interval
 setInterval(function () {
     if (owner) {
@@ -63,12 +64,89 @@ socket.onmessage = function (event) {
 
 
 
+window.onload = function()
+{
+    chathide();
+    $('#chat_msg_box').emojiPicker({
+        height: '300px',
+        width:  '450px',
+    });
+
+
+}
+
+enquire.register("(min-width:1035px)", {
+
+    // OPTIONAL
+    // If supplied, triggered when a media query matches.
+    match : function() {
+        $(".main").append("<button id='chatbutton'' onclick='chatshow()'><i class='fa fa-commenting-o fa-4x'></i></button>");
+    },
+
+    // OPTIONAL
+    // If supplied, triggered when the media query transitions
+    // *from a matched state to an unmatched state*.
+    unmatch : function() {
+        $("chatbox").remove();
+    },
+    setup : function() {
+        $(".main").append("<button id='chatbutton'' onclick='chatshow()'><i class='fa fa-commenting-o fa-4x'></i></button>");
+    }
+
+ 
+
+});
+
 ///tell server we are disconnecting
 window.onbeforeunload = function () {
+    //if(owner)
+    //{
+    //    return 'Are you sure you want to leave?';
+//}
     sendMessage(ACTIONS.DISCONNECTED, client_id);
 };
 
 
+/////// THEATER MODE
+
+/////// END THEATER MODE
+
+/////// CHAT STUFF
+function chatshow(){
+    
+    $('#chat_box').toggle();
+    $('#chatbutton').hide();
+}
+function chathide(){
+    $('#chat_box').toggle();
+    $('#chatbutton').show();
+}
+
+function chat_add_message(msg, me)
+{
+    if(msg==""){return;}
+    var message = msg;
+    var align = me?"text-align: right;":"text-align: left;";
+    var chat = "<div class='msg_container' style='"+align+"'><div class='message'><p>"+message+"</p></div></div>";
+    
+    $("#chat_area").append(chat);
+    $(".message").Emoji();
+    
+    document.getElementById("chat_area").scrollTop = document.getElementById("chat_area").scrollHeight;
+}
+
+var last_message_sent;
+
+$("#chat_msg_box").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        if($("#chat_msg_box").val()==""){return;}
+        chat_add_message($("#chat_msg_box").val(), true);
+        last_message_sent=$("#chat_msg_box").val();
+        sendMessage(ACTIONS.SENDCHAT, last_message_sent);
+        $("#chat_msg_box").val("");
+    }
+});
+///// END CHAT STUFF
 
 
 ////Video control event handlers
@@ -182,6 +260,12 @@ function processEvent(event)
             break;
         case ACTIONS.REQUESTCOUNT:
             sendMessage(ACTIONS.CLIENTRESPONDTOCOUNT, client_id);
+            break;
+        case ACTIONS.BROADCASTCHAT:
+            if(event.data!==last_message_sent)
+            {
+                chat_add_message(event.data, false);
+            }
             break;
     }
 }
