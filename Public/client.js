@@ -68,10 +68,6 @@ socket.onmessage = function (event) {
 window.onload = function()
 {
     chathide();
-    $('#chat_msg_box').emojiPicker({
-        height: '300px',
-        width:  '450px',
-    });
 
 
 }
@@ -132,7 +128,6 @@ function chat_add_message(msg, me)
     var chat = "<div class='msg_container' style='"+align+"'><div class='message' style='"+color+"'><p>"+message+"</p></div></div>";
     
     $("#chat_area").append(chat);
-    $(".message").Emoji();
     
     document.getElementById("chat_area").scrollTop = document.getElementById("chat_area").scrollHeight;
 }

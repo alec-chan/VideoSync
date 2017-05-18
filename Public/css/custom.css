@@ -11,7 +11,7 @@
   align-content: center;
   color: #fff;
   border: none;
-
+  background-image: url("chat-button.png");
 }
 
 #chatbutton:hover{
