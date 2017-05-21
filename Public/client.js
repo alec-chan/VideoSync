@@ -72,25 +72,6 @@ window.onload = function()
 
 }
 
-enquire.register("(min-width:1035px)", {
-
-    // OPTIONAL
-    // If supplied, triggered when a media query matches.
-    match : function() {
-        $(".main").append("<button id='chatbutton'' onclick='chatshow()'><i class='fa fa-commenting-o fa-4x'></i></button>");
-    },
-
-    // OPTIONAL
-    // If supplied, triggered when the media query transitions
-    // *from a matched state to an unmatched state*.
-    unmatch : function() {
-        $("chatbox").remove();
-    },
-    setup : function() {
-        $(".main").append("<button id='chatbutton'' onclick='chatshow()'><i class='fa fa-commenting-o fa-4x'></i></button>");
-    }
-
-});
 
 ///tell server we are disconnecting
 window.onbeforeunload = function () {
