@@ -9,7 +9,7 @@ var xhr = new XMLHttpRequest();
 var client_id;
 var owner = false;
 
-
+var connected_count=0;
 var namelength = 8;
 ////////////////////////////
 //ACTIONS mapping -- very critical, 
@@ -90,8 +90,6 @@ enquire.register("(min-width:1035px)", {
         $(".main").append("<button id='chatbutton'' onclick='chatshow()'><i class='fa fa-commenting-o fa-4x'></i></button>");
     }
 
- 
-
 });
 
 ///tell server we are disconnecting
@@ -104,9 +102,6 @@ window.onbeforeunload = function () {
 };
 
 
-/////// THEATER MODE
-
-/////// END THEATER MODE
 
 /////// CHAT STUFF
 function chatshow(){
@@ -273,7 +268,22 @@ function processEvent(event)
             }
             break;
         case ACTIONS.BROADCASTCOUNT:
-            
+            console.log("Got ACTIONS.BROADCASTCOUNT: "+event.data);
+            var clients=connected_count=event.data-1;
+            console.log("clients="+clients);
+            if(clients==0)
+            {
+                $('#subtitle').html("Share your room code! <input type='text' onclick='this.select();' id='code' readonly />");
+            }
+            else if(clients==1)
+            {
+                $('#subtitle').html("Watching with "+clients+" other - Invite more! <input type='text' onclick='this.select();' id='code' readonly />");
+            }
+            else
+            {
+                $('#subtitle').html("Watching with "+clients+" others - Invite more! <input type='text' onclick='this.select();' id='code' readonly />");
+            }
+            document.getElementById("code").value = href;
             break;
     }
 }
