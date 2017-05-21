@@ -325,7 +325,7 @@ function seturl(except=false)
 ///////////////////////////////////////////
 URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
-    "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "video/mp4"],
+    "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "redirector.googlevideo.com"],
     "youtube": ["youtube", "youtu.be"],
     "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
 };
@@ -396,7 +396,7 @@ function parseurl(url, exceptTorrent)
                         break;
 
                     case "direct":
-                        if(URLTYPES[key][i]=="video/mp4")
+                        if(URLTYPES[key][i]=="redirector.googlevideo.com")
                         {
                             video.src({ type: "video/mp4", src: url });
                         }
