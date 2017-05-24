@@ -297,6 +297,34 @@ function seturl(except=false)
 }
 
 
+/////////////////////
+///   Torrent Modal
+/////////////////////
+// Get the modal
+var modal = document.getElementById('torrent_modal');
+
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+function showmodal() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 
 
 ///////////////////////////////////////////
@@ -308,7 +336,7 @@ URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
     "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "redirector.googlevideo.com"],
     "youtube": ["youtube", "youtu.be"],
-    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
+    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
 };
 
 function containsAny(file, substrings) {
@@ -324,19 +352,52 @@ function containsAny(file, substrings) {
 function addFromTorrent(torrent)
 {
      //Torrents can contain many files. Let's use the .mp4 file
-    var file = torrent.files.find(function (file) {
-        //return containsAny(file, URLTYPES["direct"]);
-        return file.name.endsWith('.mp4');
+    // var file = torrent.files.find(function (file) {
+     //   //return containsAny(file, URLTYPES["direct"]);
+       // return file.name.endsWith('.mp4');
+    //});
+    console.log("displaying modal");
+    showmodal();
+    
+    torrent.files.forEach(function(file)
+    {
+        showmodal();
+        if((file.name.endsWith('.mp4')||file.name.endsWith('.mov')||file.name.endsWith('.mkv')||file.name.endsWith('.ogm'))&&file.name!=null)
+        {
+            var currentFile="";
+            console.log(file.name);
+            currentFile="<a id='"+file.name+"' href='#'>"+file.name+"</a><br/>";
+            document.getElementById("file_list").innerHTML+=currentFile;
+            document.getElementById(file.name).addEventListener("click", function()
+            {
+                addTorrentFile(this.id);
+                modal.style.display = "none";
+                
+            });
+            
+        }
+    });
+    
+    
+    
+}
+function addTorrentFile(filename)
+{
+    var file;
+    client.torrents[0].files.some(function(thefile){
+        file=thefile;
+        return thefile.name===filename;
     });
 
     if(file==null)
     {
-        alert("Direct upload and torrents currently only play .mp4 files. Sorry!");
+        alert("Direct upload and torrents currently only play h.264 files. Sorry!");
         return;
     }
     console.log(file);
 
     file.getBlobURL(function (err, url) {
+        console.log("getting file blob url");
         if (err) return util.error(err)
         video.src({
             src: url,
