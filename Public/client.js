@@ -306,7 +306,7 @@ function seturl(except=false)
 ///////////////////////////////////////////
 URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
-    "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "redirector.googlevideo.com"],
+    "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "redirector.googlevideo.com", "googleusercontent"],
     "youtube": ["youtube", "youtu.be"],
     "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
 };
