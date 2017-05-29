@@ -1,6 +1,6 @@
 IF EXIST "bin\Debug\VideoSync.exe" (
     echo "Starting up VideoSync websockets service"
-    echo "Make sure the utlity server is running. ./start_util.sh in a new screen to start it."
+    echo "Make sure the utlity server is running. run start_util.bat to start it."
     cd bin\Debug\
     mono VideoSync.exe
 ) ELSE (

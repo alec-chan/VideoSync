@@ -1,0 +1,2 @@
+cd VideoSyncUtilityServer
+python server.py

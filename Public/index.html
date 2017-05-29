@@ -1,97 +1,123 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>sync.theater</title>
-  <meta name="description" content="">
-  <meta name="author" content="alec chan">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sync.theater</title>
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../../dist/css/normalize.css">
-  <link rel="stylesheet" href="../../dist/css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+    <!-- Custom CSS -->
+    <link href="css/sync.theater.css" rel="stylesheet">
 
-  <!-- Scripts
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="http://vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">
 
-  <link href="http://vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">
-  <!-- If you'd like to support IE8 -->
-  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="../../dist/images/favicon.png">
+    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 
-  <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
-  <script src="node_modules/drag-drop/dragdrop.min.js"></script>
-  
-  <link rel="stylesheet" href="node_modules/videojs-ass/src/videojs.ass.css"></script>
-  <script src="https://use.fontawesome.com/d244c2f21f.js"></script>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" />
-  <script src="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/js/emojify.min.js"></script>
+    <script src="node_modules/drag-drop/dragdrop.min.js"></script>
 
-  <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
-  <script src="dist/Youtube.js"></script>
-  <script src="node_modules/videojs-ass/src/videojs.ass.js"></script>
-  <script src="node_modules/libjass/libjass.js"></script>
-  <script src="dist/videojs-contrib-hls.min.js"></script>
-  <script src="dist/videojs-contrib-media-sources.js"></script>
+    <link rel="stylesheet" href="node_modules/videojs-ass/src/videojs.ass.css"></script>
+    <script src="https://use.fontawesome.com/d244c2f21f.js"></script>
+    <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
+    <script src="js/Youtube.js"></script>
+    <script src="node_modules/videojs-ass/src/videojs.ass.js"></script>
+    <script src="node_modules/libjass/libjass.js"></script>
+    <script src="js/videojs-contrib-hls.min.js"></script>
+    <script src="js/videojs-contrib-media-sources.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
+
 <body>
+    
+    <div id="wrapper">
 
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-  <div class="main">
-    <div class="wrapper">
-        <div class="videocontent">
-          
-            
-          <div id="tool" class="tooltip" data-attr="">
-            <a href="http://sync.theater/" style="text-decoration: none;"><h1 id="headerid" class="title">sync.theater</h1></a>
-            <span data-attr="More"></span>
-          </div>
-          
-          <div id="subtitle">Share your room code! <input type="text" onclick="this.select();" id="code" readonly /> </div>
-
-          <video id="video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" width="768" height="432" poster="" data-setup='{"techOrder": ["html5", "youtube"], "fluid": true}'></video>
-          <br/>
-          <section class="container">
-            <div id="left" class="one"><h5 id="tag">made by <a href="https://alecchan.org/">alec chan</a></h5><i class="fa fa-bolt fa-lg"></i> Powered by <a href="http://videojs.com/">VideoJS</a> and <a href="https://webtorrent.io/">WebTorrent</a>. - <a href="/faq" target="_blank">FAQ</a><br/><i class="fa fa-paint-brush"></i> Background art - <a href="https://twitter.com/colemanmcclung" target="_blank">Coleman McClung</a></div>
-            <div class="two"><input id="url" type="text" placeholder="your video url goes here">
-            <a class="button button-primary" id="seturl">Set URL</a></div>
-          </section>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <h1>
+                Chat
+            </h1>
+            <input id="name" type="text" style="width: 100%; background: transparent; color: #ffffff;" placeholder="enter name (8 letter max)" maxlength="8">
+            <div class="pesan_chat" id="chat_area"></div>
+            <div class="chatbox"><input type="text" id="chat_msg_box" style="width: 100%; background: transparent; color: #ffffff;" placeholder="write a message.."></div>
         </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="buttons">
+                                <a id="menu-toggle" href="#menu-toggle" onclick="this.classList.toggle('change');">
+                                    <div class="bar1"></div>
+                                    <div class="bar2"></div>
+                                    <div class="bar3"></div>
+                                </a>
+                                <br/>
+                                <a id="theater-toggle" href="#theater-toggle" onclick="toggleTheaterMode(); return false;">
+                                    <span class="glyphicon glyphicon-fullscreen" style="font-size: 32px; color: #bdbdbd;"></span>
+                                </a>
+                        </div>
+                        <div id="main-content">
+                            <div id="non-video-content">
+                                <a href="http://sync.theater/" style="text-decoration: none;"><h1 id="headerid" class="title">sync.theater</h1></a>
+                                <div id="subtitle">Share your room code! <input type="text" onclick="this.select();" id="code" style="background: transparent;" readonly /> </div>
+                            </div>
+                            <br/>
+                            <div id="video-wrapper">
+                                <video id="video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" poster="" data-setup='{"techOrder": ["html5", "youtube"], "fluid": true}'></video>
+                            </div>
+                            <br/>
+                            <section class="container">
+                                <div id="left" class="one"><h5 id="tag">made by <a href="https://alecchan.org/">alec chan</a></h5><i class="fa fa-bolt fa-lg"></i> Powered by <a href="http://videojs.com/">VideoJS</a> and <a href="https://webtorrent.io/">WebTorrent</a>. - <a href="/faq" target="_blank">FAQ</a><br/><i class="fa fa-paint-brush"></i> Background art - <a href="https://twitter.com/colemanmcclung" target="_blank">Coleman McClung</a></div>
+                                <div class="two"><input id="url" type="text"  style="background: transparent;" placeholder="your video url goes here">
+                                <a class="button button-primary" id="seturl">Set URL</a></div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-  </div>
-
-  <button id='chatbutton' onclick='chatshow();'><i class='fa fa-commenting-o fa-4x'></i></button>
-  <div class="chat_box" id="chat_box">
-    <div class="chatheader"><p onclick='chathide()'>Click to hide chat..</p><input id="name" type="text" style="width: 100%;" placeholder="give yourself a name (8 letter max)" maxlength="8"></div>
-    <div class="pesan_chat" id="chat_area"></div>
-    <div class="chatbox"><input type="text" id="chat_msg_box" placeholder="write a message.."></div>
-  </div>
-
- 
-  <script type="text/javascript" src="client.js"></script>
+    <!-- /#wrapper -->
 
 
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- sync.theater code -->
+    <script type="text/javascript" src="js/client.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
 </body>
+
 </html>

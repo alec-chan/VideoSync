@@ -8,7 +8,7 @@ var video = videojs('video');
 var xhr = new XMLHttpRequest();
 var client_id;
 var owner = false;
-
+var isTheater=false;
 var connected_count=0;
 var namelength = 8;
 ////////////////////////////
@@ -176,6 +176,35 @@ function insertWelcome()
 
 }
 
+function toggleTheaterMode()
+{
+    if(!isTheater)
+    {
+        goTheaterMode();
+    }
+    else
+    {
+        exitTheaterMode();
+    }
+}
+function goTheaterMode()
+{
+    isTheater=true;
+    document.getElementById("non-video-content").style="display: none;";
+    document.getElementById("main-content").style="max-width: 90%; max-height:90%; position: absolute; top:0; right: 0;";
+    document.getElementsByClassName("container")[0].style="display: none;";
+    $('body').toggleClass('dimmed');
+    //document.getElementById("page-content-wrapper").style="padding: 15px;";
+}
+function exitTheaterMode()
+{
+    isTheater=false;
+    document.getElementById("non-video-content").style="display: inline;";
+    document.getElementById("main-content").style="max-width: 960px;";
+    document.getElementsByClassName("container")[0].style="display: inline;";
+    $('body').toggleClass('dimmed');
+    //document.getElementById("page-content-wrapper").style="padding: 15px;";
+}
 ///Process a recieved websocket event
 function processEvent(event)
 {
@@ -185,7 +214,7 @@ function processEvent(event)
         case ACTIONS.SETOWNER:
             client_id = event.data;
             document.getElementById("headerid").style.color = "#FFC107";
-            document.getElementById("tool").setAttribute("data-attr", "You are the owner - you have full control over the video playback!");
+
             owner = true;
             console.log("I am the owner");
             console.log("ID: " + client_id);
@@ -240,7 +269,7 @@ function processEvent(event)
             owner = false;
             console.log("I am a client");
             console.log("ID: " + client_id);
-            document.getElementById("tool").setAttribute("data-attr", "You are a client - you have no control over the video, just sit back and enjoy!");
+
 
             document.getElementById("code").value = href;
             break;
@@ -259,15 +288,15 @@ function processEvent(event)
             console.log("clients="+clients);
             if(clients==0)
             {
-                $('#subtitle').html("Share your room code! <input type='text' onclick='this.select();' id='code' readonly />");
+                $('#subtitle').html("Share your room code! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />");
             }
             else if(clients==1)
             {
-                $('#subtitle').html("Watching with "+clients+" other - Invite more! <input type='text' onclick='this.select();' id='code' readonly />");
+                $('#subtitle').html("Watching with "+clients+" other - Invite more! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />");
             }
             else
             {
-                $('#subtitle').html("Watching with "+clients+" others - Invite more! <input type='text' onclick='this.select();' id='code' readonly />");
+                $('#subtitle').html("Watching with "+clients+" others - Invite more! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />");
             }
             document.getElementById("code").value = href;
             break;
@@ -297,7 +326,17 @@ function seturl(except=false)
 }
 
 
+/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
 
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
 
 ///////////////////////////////////////////
 //////////                       //////////
