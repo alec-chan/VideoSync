@@ -144,7 +144,9 @@ video.on("pause", function () {
 
 video.on("play", function () {
     if (owner) {
+        sendMessage(ACTIONS.SETTIME, video.currentTime());
         sendMessage(ACTIONS.REQUESTPLAY, null);
+        
     }
 });
 
@@ -191,10 +193,11 @@ function goTheaterMode()
 {
     isTheater=true;
     document.getElementById("non-video-content").style="display: none;";
-    document.getElementById("main-content").style="max-width: 90%; max-height:90%; position: absolute; top:0; right: 0;";
+    document.getElementById("main-content").style="max-width: 100%; max-height: calc(100vh); width:100%; height: calc(100vh); position: absolute; left: 0; top: 0;";
     document.getElementsByClassName("container")[0].style="display: none;";
+    document.getElementsByClassName("video-js")[0].style="height:  calc(100vh);";
     $('body').toggleClass('dimmed');
-    //document.getElementById("page-content-wrapper").style="padding: 15px;";
+    document.getElementById("page-content-wrapper").style="padding: 0px;";
 }
 function exitTheaterMode()
 {
@@ -202,8 +205,9 @@ function exitTheaterMode()
     document.getElementById("non-video-content").style="display: inline;";
     document.getElementById("main-content").style="max-width: 960px;";
     document.getElementsByClassName("container")[0].style="display: inline;";
+    document.getElementsByClassName("video-js")[0].style="height:  100%;";
     $('body').toggleClass('dimmed');
-    //document.getElementById("page-content-wrapper").style="padding: 15px;";
+    document.getElementById("page-content-wrapper").style="padding: 15px;";
 }
 ///Process a recieved websocket event
 function processEvent(event)

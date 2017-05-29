@@ -13,7 +13,7 @@ namespace VideoSync
         private string ownerID="";
         private int clientCount = 0;
         private bool paused;
-        private static string url;
+        private string url="";
 
         
         private void GetCount()
