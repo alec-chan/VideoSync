@@ -32,7 +32,8 @@ var ACTIONS = {
     CONNECTED: 12,
     REQUESTCOUNT: 13,
     CLIENTRESPONDTOCOUNT: 14,
-    BROADCASTCOUNT: 15
+    BROADCASTCOUNT: 15,
+    REQUESTURL: 16
 };
 
 var client = new WebTorrent();
@@ -227,7 +228,7 @@ function processEvent(event)
             //document.getElementById("setass").addEventListener("click", function(event){setass();});
             insertWelcome();
             DragDrop('body', function (files) {
-                if(files.length==1&&files[0].name.endsWith('.mp4')){
+                if(files.length===1&&files[0].name.endsWith('.mp4')){
                     if(client.torrents.length>0)
                     {
                         client.remove(client.torrents[0]);
@@ -249,10 +250,15 @@ function processEvent(event)
 
             break;
         case ACTIONS.BROADCASTURL:
-            document.getElementById("url").value=event.data;
+            
+            
             //send the recieved url to our url parser
-            parseurl(event.data);
-            video.currentTime(0);
+            if(document.getElementById("url").value!==event.data)
+            {
+                document.getElementById("url").value=event.data;
+                parseurl(event.data);
+                video.currentTime(0);
+            }
             break;
         case ACTIONS.BROADCASTPAUSE:
             video.pause();
@@ -290,11 +296,11 @@ function processEvent(event)
             console.log("Got ACTIONS.BROADCASTCOUNT: "+event.data);
             var clients=connected_count=event.data-1;
             console.log("clients="+clients);
-            if(clients==0)
+            if(clients===0)
             {
                 $('#subtitle').html("Share your room code! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />");
             }
-            else if(clients==1)
+            else if(clients===1)
             {
                 $('#subtitle').html("Watching with "+clients+" other - Invite more! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />");
             }
@@ -304,6 +310,8 @@ function processEvent(event)
             }
             document.getElementById("code").value = href;
             break;
+        case ACTIONS.REQUESTURL:
+            seturl(false, true);
     }
 }
 
@@ -315,17 +323,17 @@ function setass()
 }
 
 //handles the owner setting the url
-function seturl(except=false)
+function seturl(except=false, requested=false)
 {
-    var url = document.getElementById("url").value;
-    
-    
     if (owner) {
+        var url = document.getElementById("url").value;
         sendMessage(ACTIONS.SETURL, url);
 
-
-        //send the url to our parser to be dealt with.
-        parseurl(url, except);
+        if(!requested)
+        {
+            //send the url to our parser to be dealt with.
+            parseurl(url, except);
+        }
     }
 }
 
@@ -420,7 +428,7 @@ function parseurl(url, exceptTorrent)
                         break;
 
                     case "direct":
-                        if(URLTYPES[key][i]=="redirector.googlevideo.com")
+                        if(URLTYPES[key][i]==="redirector.googlevideo.com")
                         {
                             video.src({ type: "video/mp4", src: url });
                         }
@@ -439,7 +447,7 @@ function parseurl(url, exceptTorrent)
                             console.log("Got response "+this.readyState+" from URL parser server...");
                             if (this.readyState != 4) return;
                             console.log("Got HTTP status "+this.status+" from URL parser server...");
-                            if (this.status == 200) {
+                            if (this.status === 200) {
                                 
                                 var data = JSON.parse(this.responseText);
 

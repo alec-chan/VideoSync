@@ -13,8 +13,8 @@ namespace VideoSync
         private string ownerID="";
         private int clientCount = 0;
         private bool paused;
-        private string url="";
 
+        
         
         private void GetCount()
         {
@@ -56,7 +56,7 @@ namespace VideoSync
                     }
 
                     
-                    Send(ConstructMessage(ACTIONS.BROADCASTURL, url));
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.REQUESTURL, null));
 
                 }
             }
@@ -92,7 +92,6 @@ namespace VideoSync
                 //the new url is broadcasted back to all clients except owner
                 //CLIENTSIDE NOTE: clients should all set currentTime to 0
                 case (int)ACTIONS.SETURL:
-                    url = (string)cm.data;
                     BroadcastExcept(ACTIONS.BROADCASTURL, cm.data);
                     break;
 

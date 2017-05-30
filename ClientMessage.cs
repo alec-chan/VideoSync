@@ -43,7 +43,8 @@ namespace VideoSync
         CONNECTED,          //server->client
         REQUESTCOUNT,       //server->clients
         CLIENTRESPONDTOCOUNT, //owner-> server
-        BROADCASTCOUNT
+        BROADCASTCOUNT,
+        REQUESTURL
     }
 
     public class Client
