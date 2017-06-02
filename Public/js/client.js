@@ -359,7 +359,12 @@ URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
     "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "redirector.googlevideo.com", "googleusercontent", "googlevideo"],
     "youtube": ["youtube", "youtu.be"],
-    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
+    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"],
+    "soundcloud": ["soundcloud.com"],
+    "dailymotion": ["dailymotion.com"],
+    "deezer": ["deezer.com"],
+    "spotify": ["spotify"],
+    "vimeo": ["vimeo.com"]
 };
 
 function containsAny(file, substrings) {
@@ -459,8 +464,22 @@ function parseurl(url, exceptTorrent)
                         xhr.open("POST", "http://"+window.location.hostname+":8080", true);
                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
                         xhr.send("enc-url="+url);
-
-
+                        break;
+                    case "spotify":
+                        video.src({ type: "video/spotify", src: url });
+                        break;
+                    case "deezer":
+                        video.src({ type: "audio/deezer", src: url });
+                        break;
+                    case "vimeo":
+                        video.src({ type: "video/vimeo", src: url });
+                        break;
+                    case "dailymotion":
+                        video.src({ type: "video/dailymotion", src: url });
+                        break;
+                    case "soundcloud":
+                        video.src({ type: "video/soundcloud", src: url });
+                        break;
                 }
                 return;
             }
