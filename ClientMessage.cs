@@ -44,7 +44,10 @@ namespace VideoSync
         REQUESTCOUNT,       //server->clients
         CLIENTRESPONDTOCOUNT, //owner-> server
         BROADCASTCOUNT,
-        REQUESTURL
+        REQUESTQUEUE,
+        CLEARQUEUE,
+        SKIPTOINDEX,
+        RECIEVEQUEUE
     }
 
     public class Client

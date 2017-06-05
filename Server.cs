@@ -56,7 +56,7 @@ namespace VideoSync
                     }
 
                     
-                    Sessions.Broadcast(ConstructMessage(ACTIONS.REQUESTURL, null));
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.REQUESTQUEUE, null));
 
                 }
             }
@@ -142,7 +142,15 @@ namespace VideoSync
                     clientCount++;
                     Console.WriteLine(clientCount + " clients have responded...");
                     break;
-                
+                case (int)ACTIONS.CLEARQUEUE:
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.CLEARQUEUE, null));
+                    break;
+                case (int)ACTIONS.SKIPTOINDEX:
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.SKIPTOINDEX, cm.data));
+                    break;
+                case (int)ACTIONS.RECIEVEQUEUE:
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.RECIEVEQUEUE, cm.data));
+                    break;                
 
             }
 

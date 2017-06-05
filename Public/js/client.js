@@ -33,11 +33,17 @@ var ACTIONS = {
     REQUESTCOUNT: 13,
     CLIENTRESPONDTOCOUNT: 14,
     BROADCASTCOUNT: 15,
-    REQUESTURL: 16
+    REQUESTQUEUE: 16,
+    CLEARQUEUE: 17,
+    SKIPTOINDEX: 18,
+    RECIEVEQUEUE: 19
 };
 
-var client = new WebTorrent();
-
+//var client = new WebTorrent();
+var queue = {
+    videoqueue: [],
+    queueindex: 0
+}
 
 
 ///dont allow clients to seek
@@ -59,19 +65,14 @@ setInterval(function () {
 
 ///recieve ws events and send for processing
 socket.onmessage = function (event) {
-    console.log("recieved message: " + event.action +":" + event.data);
+    //console.log("recieved message: " + event.action +":" + event.data);
     var msg = JSON.parse(event.data);
     processEvent(msg);
 };
 
 
 
-window.onload = function()
-{
-    chathide();
 
-
-}
 
 
 ///tell server we are disconnecting
@@ -83,23 +84,79 @@ window.onbeforeunload = function () {
     sendMessage(ACTIONS.DISCONNECTED, client_id);
 };
 
+/////////////////////////
+/////  VIDEO QUEUE
+/////////////////////////
+function setQueue()
+{
+    
+    for(var i in queue.videoqueue)
+    {
+        addToQueueHTML(queue.videoqueue[i]);
+    }
+    jumpToIndex(queue.queueindex);
+}
+function clearqueue()
+{
+    queue.queueindex=0;
+    queue.videoqueue=[];
+    $("#queue").html("");
+    console.log("queue cleared");
+}
 
+function addToQueue(url)
+{
+
+    queue.videoqueue.push(url);
+    addToQueueHTML(url);
+}
+
+function addToQueueHTML(url)
+{
+    var queuestr="";
+    for(var str in queue.videoqueue)
+    {
+        queuestr+="<a href='#"+str+"' onclick='requestJumpToIndex("+str+"); return false;'>"+queue.videoqueue[str]+"</a><br/>";
+    }
+    $("#queue").html(queuestr);
+    if(queue.queueindex===0)
+    {
+        parseurl(queue.videoqueue[0],false);
+        requestJumpToIndex(0);
+    }
+}
+
+function requestJumpToIndex(index)
+{
+    if(owner)
+    {
+        sendMessage(ACTIONS.SKIPTOINDEX, index);
+    }
+}
+function jumpToIndex(index)
+{
+    queue.queueindex=index;
+    parseurl(queue.videoqueue[index],false);
+}
+
+video.on("ended", function () {
+
+    if(queue.queueindex<queue.videoqueue.length)
+    {
+        queue.queueindex+=1;
+        console.log(queue.queueindex+" queue index");
+        console.log("attempting to load "+queue.videoqueue[queue.queueindex]);
+        requestJumpToIndex(queue.queueindex);
+        parseurl(videoqueue[queue.queueindex], false);
+        
+    }
+
+});
+
+
+/////////////////////////
 
 /////// CHAT STUFF
-function chatshow(){
-    
-    $('#chat_box').toggle();
-    $('#chatbutton').hide();
-}
-function chathide(){
-    $('#chat_box').toggle();
-    $('#chatbutton').show();
-}
-function blink_chat() {
-    $('#chatbutton').fadeOut(500);
-    $('#chatbutton').fadeIn(500);
-}
-
 function chat_add_message(msg, me)
 {
     if(msg==""){return;}
@@ -133,6 +190,8 @@ $("#name").on('keyup', function (e) {
         $("#name").attr("readonly",true);
     }
 });
+
+
 ///// END CHAT STUFF
 
 
@@ -224,10 +283,11 @@ function processEvent(event)
             console.log("I am the owner");
             console.log("ID: " + client_id);
             document.getElementById("code").value = href;
-            document.getElementById("seturl").addEventListener("click", function(event){seturl();});
+            document.getElementById("addqueue").addEventListener("click", function(event){sendMessage(ACTIONS.SETURL, document.getElementById("url").value); addToQueue(document.getElementById("url").value); document.getElementById("url").value="";});
+            document.getElementById("clearqueue").addEventListener("click", function(event){sendMessage(ACTIONS.CLEARQUEUE, null);});
             //document.getElementById("setass").addEventListener("click", function(event){setass();});
             insertWelcome();
-            DragDrop('body', function (files) {
+            /*DragDrop('body', function (files) {
                 if(files.length===1&&files[0].name.endsWith('.mp4')){
                     if(client.torrents.length>0)
                     {
@@ -246,19 +306,11 @@ function processEvent(event)
                 {
                     alert("We don't support multi-file upload or files other than .mp4, sorry!");
                 }
-            });
+            });*/
 
             break;
         case ACTIONS.BROADCASTURL:
-            
-            
-            //send the recieved url to our url parser
-            if(document.getElementById("url").value!==event.data)
-            {
-                document.getElementById("url").value=event.data;
-                parseurl(event.data);
-                video.currentTime(0);
-            }
+            addToQueue(event.data);
             break;
         case ACTIONS.BROADCASTPAUSE:
             video.pause();
@@ -310,74 +362,45 @@ function processEvent(event)
             }
             document.getElementById("code").value = href;
             break;
-        case ACTIONS.REQUESTURL:
-            seturl(false, true);
+        case ACTIONS.REQUESTQUEUE:
+            if(owner)
+            {
+                sendMessage(ACTIONS.RECIEVEQUEUE, queue);
+            }
+            break;
+        case ACTIONS.CLEARQUEUE:
+            clearqueue();
+            break;
+        case ACTIONS.SKIPTOINDEX:
+            jumpToIndex(event.data);
+            break;
+        case ACTIONS.RECIEVEQUEUE:
+            console.log("recieved queue from owner");
+            if(JSON.stringify(event.data)!==JSON.stringify(queue))
+            {
+                console.log("queues don't match, setting owners queue");
+                queue=event.data;
+                setQueue();
+            }
+            break;
     }
 }
 
-//adds 
-function setass()
-{
-    var url = document.getElementById("assurl").value;
-    video.ass({src: url});
-}
-
-//handles the owner setting the url
-function seturl(except=false, requested=false)
-{
-    if (owner) {
-        var url = document.getElementById("url").value;
-        sendMessage(ACTIONS.SETURL, url);
-
-        if(!requested)
-        {
-            //send the url to our parser to be dealt with.
-            parseurl(url, except);
-        }
-    }
-}
-
-
-/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-}
-
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-}
 
 ///////////////////////////////////////////
 //////////                       //////////
 //////////    URL PARSER CODE    //////////
 //////////                       //////////
 ///////////////////////////////////////////
-URLTYPES = {
+var URLTYPES = {
     "bittorrent": ["magnet:", ".torrent"],
     "direct": [".webm", ".mp4", ".gifv", ".ogg", ".ogv", ".mkv", ".avi", ".mp3", ".flac", ".m4a", ".aac", "redirector.googlevideo.com", "googleusercontent", "googlevideo"],
     "youtube": ["youtube", "youtu.be"],
-    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"],
-    "soundcloud": ["soundcloud.com"],
-    "dailymotion": ["dailymotion.com"],
-    "deezer": ["deezer.com"],
-    "spotify": ["spotify"],
-    "vimeo": ["vimeo.com"]
+    "livestream": ["crunchyroll.com", "adultswim.com", "dailymotion.com","daisuki.net","funimation.com","https://drive.google.com","mlg.tv","9anime.to","nbc.com","nbcsports.com","periscope.tv","streamable.com","twitch.tv","ustream.tv","weeb.tv"]
 };
 
-function containsAny(file, substrings) {
-    for (var i = 0; i != substrings.length; i++) {
-       var substring = substrings[i];
-       if (file.name.endsWith(substring)) {
-         return file;
-       }
-    }
-    return null; 
-}
 
-function addFromTorrent(torrent)
+/*function addFromTorrent(torrent)
 {
      //Torrents can contain many files. Let's use the .mp4 file
     var file = torrent.files.find(function (file) {
@@ -400,7 +423,7 @@ function addFromTorrent(torrent)
         });
         
     })
-}
+}*/
 function parseurl(url, exceptTorrent)
 {
     console.log("parsing url...");
@@ -417,7 +440,7 @@ function parseurl(url, exceptTorrent)
                 switch(key)
                 {
                     case "bittorrent":
-                        if(!exceptTorrent){
+                        /*if(!exceptTorrent){
                             if(client.torrents.length>0)
                             {
                                 client.remove(client.torrents[0]);
@@ -425,7 +448,8 @@ function parseurl(url, exceptTorrent)
                             client.add(url, function (torrent) {
                                 addFromTorrent(torrent);
                             });
-                        }
+                        }*/
+                        alert("Sorry, we have temporarily removed support for bittorrent files.");
                         break;
                         
                     case "youtube":
@@ -465,24 +489,16 @@ function parseurl(url, exceptTorrent)
                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
                         xhr.send("enc-url="+url);
                         break;
-                    case "spotify":
-                        video.src({ type: "video/spotify", src: url });
-                        break;
-                    case "deezer":
-                        video.src({ type: "audio/deezer", src: url });
-                        break;
-                    case "vimeo":
-                        video.src({ type: "video/vimeo", src: url });
-                        break;
-                    case "dailymotion":
-                        video.src({ type: "video/dailymotion", src: url });
-                        break;
-                    case "soundcloud":
-                        video.src({ type: "video/soundcloud", src: url });
-                        break;
+                    
                 }
+                video.play();
                 return;
             }
+        }
+        
+        if(key==="livestream")
+        {
+            video.src(url);
         }
         
     }

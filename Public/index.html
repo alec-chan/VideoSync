@@ -28,7 +28,7 @@
     <script src="https://use.fontawesome.com/d244c2f21f.js"></script>
     <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
     <script src="js/Youtube.js"></script>
-    <script src="node_modules/videojs-externals/dist/videojs-externals.min.js"></script>
+    <!--<script src="node_modules/videojs-externals/dist/videojs-externals.min.js"></script>-->
     <script src="node_modules/videojs-ass/src/videojs.ass.js"></script>
     <script src="node_modules/libjass/libjass.js"></script>
     <script src="js/videojs-contrib-hls.min.js"></script>
@@ -83,14 +83,22 @@
                             </div>
                             
                             <div id="video-wrapper">
-                                <video id="video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" poster="" data-setup='{"techOrder": ["html5", "youtube", "soundcloud", "dailymotion", "spotify", "deezer", "vimeo"], "fluid": true}'></video>
+                                <video id="video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" poster="" data-setup='{"techOrder": ["html5", "youtube"], "fluid": true}'></video>
                             </div>
                             
                             <section class="container">
                                 <br/>
                                 <div id="left" class="one"><h5 id="tag">made by <a href="https://alecchan.org/">alec chan</a></h5><i class="fa fa-bolt fa-lg"></i> Powered by <a href="http://videojs.com/">VideoJS</a> and <a href="https://webtorrent.io/">WebTorrent</a>. - <a href="/faq" target="_blank">FAQ</a><br/><i class="fa fa-paint-brush"></i> Background art - <a href="https://twitter.com/colemanmcclung" target="_blank">Coleman McClung</a></div>
-                                <div class="two"><input id="url" type="text"  style="background: transparent;" placeholder="your video url goes here">
-                                <a class="button button-primary" id="seturl">Set URL</a></div>
+                                <div class="two">
+                                    <input id="url" type="text"  style="background: transparent;" placeholder="your video url goes here">
+                                    <br/>
+                                    <br/>
+                                    <a class="button button-primary" id="addqueue">Add to queue</a>
+
+                                    <a class="button button-primary" id="clearqueue">Clear queue</a>
+                                    <h5 style="margin-bottom: 10px;">Queue</h5>
+                                    <div id="queue" style="max-width: 50%; display: inline-block;padding:2px; line-height: 20px;border: 1px solid #bdbdbd; border-radius: 3px; overflow: auto; max-height: 90px;"></div>
+                                </div>
                             </section>
                         </div>
                     </div>

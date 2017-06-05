@@ -1,0 +1,61 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/brightcove/videojs-playlist/compare/v2.0.0...v4.0.0) (2017-05-19)
+
+### Chores
+
+* Update tooling using generator v5 prerelease. ([#79](https://github.com/brightcove/videojs-playlist/issues/79)) ([0b53140](https://github.com/brightcove/videojs-playlist/commit/0b53140))
+
+
+### BREAKING CHANGES
+
+* Remove Bower support.
+
+## 3.1.1 (2017-04-27)
+_(none)_
+
+## 3.1.0 (2017-04-03)
+* @incompl Add repeat functionality to plugin [#71](https://github.com/brightcove/videojs-playlist/pull/71)
+
+## 3.0.2 (2017-02-10)
+* @misteroneill Suppress videojs.plugin deprecation warning in Video.js 6 [#68](https://github.com/brightcove/videojs-playlist/pull/68)
+
+## 3.0.1 (2017-01-30)
+* @misteroneill Update project to use latest version of plugin generator as well as ensure cross-version support between Video.js 5 and 6. [#63](https://github.com/brightcove/videojs-playlist/pull/63)
+
+## 3.0.0 (2016-09-12)
+* @misteroneill Remove Brightcove VideoCloud-specific Code [#51](https://github.com/brightcove/videojs-playlist/pull/51)
+
+## 2.5.0 (2016-09-12)
+* @mister-ben Load playlist with initial video at specified index or no starting video [#38](https://github.com/brightcove/videojs-playlist/pull/38)
+
+## 2.4.1 (2016-04-21)
+* @gkatsev fixed build scripts to only apply browserify-shim for dist files. Fixes [#36](https://github.com/brightcove/videojs-playlist/issues/36). [#44](https://github.com/brightcove/videojs-playlist/pull/44)
+
+## 2.4.0 (2016-04-21)
+* @vdeshpande Fixed an issue where incorrect end time value was used [#43](https://github.com/brightcove/videojs-playlist/pull/43)
+
+## 2.3.0 (2016-04-19)
+* @vdeshpande Support cue point intervals [#37](https://github.com/brightcove/videojs-playlist/pull/37)
+
+## 2.2.0 (2016-01-29)
+* @forbesjo Support turning a list of cue points into a TextTrack [#24](https://github.com/brightcove/videojs-playlist/pull/24)
+
+## 2.1.0 (2015-12-30)
+* @misteroneill Moved to the generator-videojs-plugin format and added `last()` method [#23](https://github.com/brightcove/videojs-playlist/pull/23)
+
+## 2.0.0 (2015-11-25)
+* @misteroneill Updates for video.js 5.x [#22](https://github.com/brightcove/videojs-playlist/pull/22)
+* @saramartinez Fix typos in examples for `currentItem()` method [#18](https://github.com/brightcove/videojs-playlist/pull/18)
+
+## 1.0.3 (2015-08-24)
+* @forbesjo README update [#16](https://github.com/brightcove/videojs-playlist/pull/16)
+* @forbesjo Fix for playlist items without a `src` [#14](https://github.com/brightcove/videojs-playlist/pull/14)
+
+## 1.0.2 (2015-04-09)
+* @gkatsev Explicitly define which files are included.
+
+## 1.0.1 (2015-03-30)
+* @gkatsev Added missing repository field to `package.json`.
+
+## 1.0.0 (2015-03-30)
+* @gkatsev Initial release.
