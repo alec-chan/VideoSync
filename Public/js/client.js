@@ -104,22 +104,39 @@ function clearqueue()
     console.log("queue cleared");
 }
 
+function ValidURL(str) {
+  var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
+    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
+    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
+    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
+    '(\#[-a-z\d_]*)?$','i'); // fragment locater
+  if(!pattern.test(str)) {
+    alert("Please enter a valid URL.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function addToQueue(url)
 {
-
-    queue.videoqueue.push(url);
-    addToQueueHTML(url);
+    if(ValidURL(url)){
+        queue.videoqueue.push(url);
+        addToQueueHTML(url);
+    }
 }
 
 function addToQueueHTML(url)
 {
-    var queuestr="";
+    var queuestr="<ol>";
     for(var str in queue.videoqueue)
     {
-        queuestr+="<a href='#"+str+"' onclick='requestJumpToIndex("+str+"); return false;'>"+queue.videoqueue[str]+"</a><br/>";
+        queuestr+="<li><a href='#"+str+"' onclick='requestJumpToIndex("+str+"); return false;'>"+queue.videoqueue[str].substring(0,30)+"</a></li>";
     }
+    queuestr+="</ol>";
     $("#queue").html(queuestr);
-    if(queue.queueindex===0)
+    if(queue.queueindex===0&&video.currentSrc()!=queue.videoqueue[0])
     {
         parseurl(queue.videoqueue[0],false);
         requestJumpToIndex(0);

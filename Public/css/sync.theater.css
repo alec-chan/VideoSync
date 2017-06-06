@@ -4,7 +4,9 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  background-color: black;
+}
 body {
     overflow-x: hidden;
     background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),url('../assets/images/bg.jpg') no-repeat center center fixed; 
