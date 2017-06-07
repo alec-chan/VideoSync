@@ -12,12 +12,13 @@ All video is externally hosted.  Currently, the client is able to handle URLs di
 ## Installation
 - Clone the repo
 - Make sure mono-complete is installed. Check their website for info on how to install: http://www.mono-project.com/docs/getting-started/install/
-- Run `./run_local.sh` this will attempt to start the server and if it can't find compiled binaries, it will run `mcs_build.sh` to attempt to create them.
-- NOTE: in the `mcs_build.sh` file, I have hardcoded a path to the `System.Web.Extensions.dll` assembly.  This path may be different on your system, or with your version of mono, so make sure that is the correct path before building or else it will fail to compile.
+- Unix-based: run `./run_local.sh` this will attempt to start the server and if it can't find compiled binaries, it will run `mcs_build.sh` to attempt to create them.
+- Windows: run `run_local.bat` which will do the same as above with `mcs_build.bat`.
+- NOTE: To upgrade the binary after modifying server code, run `mcs_build.sh` or `mcs_build.bat` to compile updated binaries.
 
 ## Usage
-- Unix-based: run ./run_local.sh and it will prompt you for an admin password.
-- Windows: compile with mono or csc and run VideoSync.exe
+- Unix-based: run `sudo ./run_local.sh` and it will prompt you for an admin password. Running without sudo will not work as the server runs on port 80 which needs root access.
+- Windows: run `mcs_build.bat` from command prompt or from explorer.
 
 ## Contributing
 1. Fork it!
