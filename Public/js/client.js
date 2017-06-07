@@ -2,8 +2,8 @@
 var path = window.location.pathname;
 var href = window.location.href;
 var defColor = document.getElementById("headerid").style.color;
-var socket = new WebSocket("ws://" + window.location.hostname + ":80" + path);
-var video = videojs("video");
+var socket = new WebSocket('ws://' + window.location.hostname + ':80' + path);
+var video = videojs('video');
 
 var xhr = new XMLHttpRequest();
 var client_id;
@@ -150,6 +150,20 @@ function addToQueue(url) {
   }
 }
 
+function highlightCurrent()
+{
+  $('#queue ol li').each(function(index){
+    if(index===queue.queueindex)
+    {
+      $(this).find("a").css("color","#FFC107");
+    }
+    else
+    {
+      $(this).find("a").css("color","#42A5F5");
+    }
+  });
+}
+
 function addToQueueHTML(url) {
   if ($("#queue").hasClass("hidden")) {
     $("#queue").toggleClass("hidden");
@@ -174,6 +188,7 @@ function addToQueueHTML(url) {
     parseurl(queue.videoqueue[0], false);
     requestJumpToIndex(0);
   }
+  highlightCurrent();
 }
 
 function requestJumpToIndex(index) {
@@ -184,6 +199,7 @@ function requestJumpToIndex(index) {
 function jumpToIndex(index) {
   queue.queueindex = index;
   parseurl(queue.videoqueue[index], false);
+  highlightCurrent();
 }
 
 video.on("ended", function() {
