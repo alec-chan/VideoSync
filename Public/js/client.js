@@ -185,7 +185,7 @@ function chat_add_message(msg, me)
     $("#chat_area").append(chat);
     
     document.getElementById("chat_area").scrollTop = document.getElementById("chat_area").scrollHeight;
-    blink_chat();
+    
 }
 
 var last_message_sent;
