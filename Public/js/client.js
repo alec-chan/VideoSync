@@ -11,6 +11,7 @@ var owner = false;
 var isTheater=false;
 var connected_count=0;
 var namelength = 8;
+var myname;
 ////////////////////////////
 //ACTIONS mapping -- very critical, 
 //this dict has to match exactly with 
@@ -45,6 +46,24 @@ var queue = {
     queueindex: 0
 }
 
+$(document).ready(function(){
+    var timer;
+    $(document).mousemove(function() {
+        if (timer) {
+            clearTimeout(timer);
+            timer = 0;
+        }
+
+        if(isTheater)
+            $('#buttons').fadeIn();
+        
+        timer = setTimeout(function() {
+            if(isTheater)
+                $('#buttons').fadeOut();
+        }, 3000)
+    })
+});
+
 
 ///dont allow clients to seek
 if (!owner) {
@@ -72,7 +91,19 @@ socket.onmessage = function (event) {
 
 
 
-
+window.onload = function(){
+    var name = readCookie("username");
+    if(name)
+    {
+        $("#name").attr("readonly",true);
+        $("#name").replaceWith("<h5 title='Clear your cookies to change your name!'>Welcome back <font color='#FFC107'>"+name+"</font>!</h5>");
+        myname=name;
+    }
+    else
+    {
+        myname=owner?"owner":"client";
+    }
+}
 
 
 ///tell server we are disconnecting
@@ -102,15 +133,15 @@ function clearqueue()
     queue.videoqueue=[];
     $("#queue").html("");
     console.log("queue cleared");
+    if(!$("#queue").hasClass("hidden")){$("#queue").toggleClass("hidden");}
+    if(!$("#queuetitle").hasClass("hidden")){$("#queuetitle").toggleClass("hidden");}
 }
 
 function ValidURL(str) {
-  var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
-    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-    '(\#[-a-z\d_]*)?$','i'); // fragment locater
+  var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+
+
+  var pattern = new RegExp(expression);
   if(!pattern.test(str)) {
     alert("Please enter a valid URL.");
     return false;
@@ -129,6 +160,8 @@ function addToQueue(url)
 
 function addToQueueHTML(url)
 {
+    if($("#queue").hasClass("hidden")){$("#queue").toggleClass("hidden");}
+    if($("#queuetitle").hasClass("hidden")){$("#queuetitle").toggleClass("hidden");}
     var queuestr="<ol>";
     for(var str in queue.videoqueue)
     {
@@ -179,7 +212,7 @@ function chat_add_message(msg, me)
     if(msg==""){return;}
     var message = msg;
     var align = me?"text-align: right;":"text-align: left;";
-    var color = me?" background-color: #000;":"background-color: #424242;";
+    var color = me?" background-color: #212121;":"background-color: #424242;";
     var chat = "<div class='msg_container' style='"+align+"'><div class='message' style='"+color+"'><p>"+message+"</p></div></div>";
     
     $("#chat_area").append(chat);
@@ -189,7 +222,7 @@ function chat_add_message(msg, me)
 }
 
 var last_message_sent;
-var myname=owner?"owner":"client";
+
 $("#chat_msg_box").on('keyup', function (e) {
     if (e.keyCode == 13) {
         if($("#chat_msg_box").val()==""){return;}
@@ -203,11 +236,52 @@ $("#chat_msg_box").on('keyup', function (e) {
 
 $("#name").on('keyup', function (e) {
     if (e.keyCode == 13) {
-        myname=$("#name").val().slice(0,9);
-        $("#name").attr("readonly",true);
+        if($("#name").val()!="")
+        {
+            myname=$("#name").val().slice(0,13);
+
+            $("#name").attr("readonly",true);
+            createCookie("username", myname, 365);
+        }
+        else
+        {
+            alert("Enter a valid name!");
+        }
     }
 });
 
+$("#url").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        sendMessage(ACTIONS.SETURL, document.getElementById("url").value); 
+        addToQueue(document.getElementById("url").value); 
+        document.getElementById("url").value="";
+    }
+});
+
+function createCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}
 
 ///// END CHAT STUFF
 

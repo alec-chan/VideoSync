@@ -24,7 +24,7 @@
 
     <script src="node_modules/drag-drop/dragdrop.min.js"></script>
 
-    <link rel="stylesheet" href="node_modules/videojs-ass/src/videojs.ass.css"></script>
+    
     <script src="https://use.fontawesome.com/d244c2f21f.js"></script>
     <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
     <script src="js/Youtube.js"></script>
@@ -33,12 +33,6 @@
     <script src="node_modules/libjass/libjass.js"></script>
     <script src="js/videojs-contrib-hls.min.js"></script>
     <script src="js/videojs-contrib-media-sources.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -51,7 +45,7 @@
             <h1>
                 Chat
             </h1>
-            <input id="name" type="text" style="width: 100%; background: transparent; color: #ffffff;" placeholder="enter name (8 letter max)" maxlength="8">
+            <input id="name" type="text" style="width: 100%; background: transparent; color: #ffffff;" placeholder="enter name (12 letter max)" maxlength="12">
             <div class="pesan_chat" id="chat_area"></div>
             <div class="chatbox"><input type="text" id="chat_msg_box" style="width: 100%; background: transparent; color: #ffffff;" placeholder="write a message.."></div>
         </div>
@@ -65,13 +59,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div id="buttons">
-                                <a id="menu-toggle" href="#menu-toggle" onclick="this.classList.toggle('change');">
+                                <a id="menu-toggle" title="Toggle chat" href="#menu-toggle" onclick="this.classList.toggle('change');">
                                     <div class="bar1"></div>
                                     <div class="bar2"></div>
                                     <div class="bar3"></div>
                                 </a>
                                 <br/>
-                                <a id="theater-toggle" href="#theater-toggle" onclick="toggleTheaterMode(); return false;">
+                                <a id="theater-toggle" title="Toggle theater mode" href="#theater-toggle" onclick="toggleTheaterMode(); return false;">
                                     <span class="glyphicon glyphicon-fullscreen" style="font-size: 32px; color: #bdbdbd;"></span>
                                 </a>
                         </div>
@@ -96,8 +90,8 @@
                                     <a class="button button-primary" id="addqueue">Add to queue</a>
 
                                     <a class="button button-primary" id="clearqueue">Clear queue</a>
-                                    <h5 style="margin-bottom: 10px;">Queue</h5>
-                                    <div id="queue" style="max-width: 50%; display: inline-block;padding:2px; line-height: 20px;border: 1px solid #bdbdbd; border-radius: 3px; overflow: auto; max-height: 90px;"></div>
+                                    <h5 id="queuetitle" class="hidden" style="margin-bottom: 10px;">Queue</h5>
+                                    <div id="queue" class="hidden" style="max-width: 50%; display: inline-block;padding:2px; line-height: 20px;border: 1px solid #bdbdbd; border-radius: 3px; overflow: auto; max-height: 90px;"></div>
                                 </div>
                             </section>
                         </div>
@@ -114,12 +108,20 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <script>
+        $( function() {
+            $( document ).tooltip({show:{delay:700}});
+        } );
+    </script>
     <!-- sync.theater code -->
     <script type="text/javascript" src="js/client.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    
 
     <!-- Menu Toggle Script -->
     <script>

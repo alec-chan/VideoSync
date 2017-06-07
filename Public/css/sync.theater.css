@@ -5,7 +5,6 @@
  */
 html {
   font-size: 62.5%;
-  background-color: black;
 }
 body {
     overflow-x: hidden;
@@ -22,7 +21,9 @@ body {
     line-height: 1.6;
     font-weight: 400;
 }
-
+.hidden {
+    display: none;
+}
 #headerid{
     color: #fff;
 }
