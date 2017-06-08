@@ -32,6 +32,9 @@
         rel="stylesheet"
     ></link>
 
+    <link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
     <!-- Custom CSS -->
 
     <link
@@ -228,6 +231,16 @@
                                         class="hidden"
                                         style="max-width: 50%; display: inline-block;padding:2px; line-height: 20px;border: 1px solid #bdbdbd; border-radius: 3px; overflow: auto; max-height: 90px; text-align: left;"
                                     ></div>
+                                    <br/>
+                                    <br/>
+                                    <a
+                                        
+                                        class="button button-primary hidden"
+                                        id="gethash"
+                                        title="Saves your queue to cookies. Press clear queue to delete the cookie."
+                                    >Save queue</a>
+
+                                    
                                 </div>
                             </section>
                         </div>
@@ -261,6 +274,8 @@
             $( document ).tooltip({show:{delay:700}});
         } );
     </script>
+
+    <script src="js/sha1-min.js"></script>
 
     <!-- sync.theater code -->
 

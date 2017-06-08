@@ -86,6 +86,11 @@ socket.onmessage = function(event) {
 };
 
 window.onload = function() {
+  readAllCookies();
+};
+
+function readAllCookies()
+{
   var name = readCookie("username");
   if (name) {
     $("#name").attr("readonly", true);
@@ -98,8 +103,25 @@ window.onload = function() {
   } else {
     myname = owner ? "owner" : "client";
   }
-};
+  
+}
 
+function loadQueueFromCookie()
+{
+  if(owner)
+  {
+    var queuehash = readCookie("queuehash");
+    if(queuehash)
+    {
+      document.getElementById("url").value=queuehash;
+      sendMessage(ACTIONS.SETURL, document.getElementById("url").value);
+      addToQueue(document.getElementById("url").value);
+      document.getElementById("url").value = "";
+
+      
+    }
+  }
+}
 ///tell server we are disconnecting
 window.onbeforeunload = function() {
   //if(owner)
@@ -129,6 +151,9 @@ function clearqueue() {
   if (!$("#queuetitle").hasClass("hidden")) {
     $("#queuetitle").toggleClass("hidden");
   }
+  if (!$("#gethash").hasClass("hidden")) {
+    $("#gethash").toggleClass("hidden");
+  }
 }
 
 function ValidURL(str) {
@@ -136,7 +161,7 @@ function ValidURL(str) {
 
   var pattern = new RegExp(expression);
   if (!pattern.test(str)) {
-    alert("Please enter a valid URL.");
+    //alert("Please enter a valid URL.");
     return false;
   } else {
     return true;
@@ -147,6 +172,15 @@ function addToQueue(url) {
   if (ValidURL(url)) {
     queue.videoqueue.push(url);
     addToQueueHTML(url);
+  }
+  else
+  {
+    var qu = hashToQueue(url);
+    if(qu.hasOwnProperty("queueindex")&&qu.hasOwnProperty("videoqueue"))
+    {
+      queue=qu;
+      setQueue();
+    }
   }
 }
 
@@ -170,6 +204,9 @@ function addToQueueHTML(url) {
   }
   if ($("#queuetitle").hasClass("hidden")) {
     $("#queuetitle").toggleClass("hidden");
+  }
+  if ($("#gethash").hasClass("hidden")) {
+    $("#gethash").toggleClass("hidden");
   }
   var queuestr = "<ol>";
   for (var str in queue.videoqueue) {
@@ -378,6 +415,7 @@ function exitTheaterMode() {
 ///Process a recieved websocket event
 function processEvent(event) {
   switch (event.action) {
+
     case ACTIONS.SETOWNER:
       client_id = event.data;
       document.getElementById("headerid").style.color = "#FFC107";
@@ -396,8 +434,20 @@ function processEvent(event) {
       document
         .getElementById("clearqueue")
         .addEventListener("click", function(event) {
+          eraseCookie("queuehash");
           sendMessage(ACTIONS.CLEARQUEUE, null);
         });
+
+      document
+        .getElementById("gethash")
+        .addEventListener("click", function(event) {
+          var hash=convertQueueToHash();
+          createCookie("queuehash", hash, 365);
+          
+          
+          
+        });
+        loadQueueFromCookie();
       //document.getElementById("setass").addEventListener("click", function(event){setass();});
       insertWelcome();
       /*DragDrop('body', function (files) {
@@ -545,6 +595,18 @@ var URLTYPES = {
     "weeb.tv"
   ]
 };
+
+// Create Base64 Object
+var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+
+
+function convertQueueToHash() {
+  return Base64.encode(JSON.stringify(queue));
+}
+
+function hashToQueue(string) {
+  return JSON.parse(Base64.decode(string));
+}
 
 /*function addFromTorrent(torrent)
 {
