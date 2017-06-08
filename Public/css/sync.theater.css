@@ -219,14 +219,13 @@ p {
 
 #video-wrapper {
   margin:0 auto;
-  max-width: inherit;
-  width: 100%;
+  
+  
   text-align: right;
 }
 #main-content{
   margin:0 auto;
-  max-width: 960px;
-  width: 100%;
+  max-width: 70%;
   text-align: right;
 }
 input[type="text"]::-moz-placeholder{color: grey;}
@@ -360,7 +359,7 @@ input[type="button"].button-primary:focus {
 
 
 #buttons{
-    position:absolute;
+    position:fixed;
     z-index: 1000000;
 }
 /* Hamburger Button*/
