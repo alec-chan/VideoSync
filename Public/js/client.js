@@ -464,6 +464,10 @@ function processEvent(event) {
           
           
         });
+
+        $("#url").toggleClass("hidden");
+        $("#addqueue").toggleClass("hidden");
+        $("#clearqueue").toggleClass("hidden");
         loadQueueFromCookie();
       //document.getElementById("setass").addEventListener("click", function(event){setass();});
       insertWelcome();

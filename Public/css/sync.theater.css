@@ -222,8 +222,13 @@ p {
 
 #video-wrapper {
   margin:0 auto;
+<<<<<<< HEAD
   display: flex;
   flex-wrap: wrap;
+=======
+  
+  
+>>>>>>> 92bd4263ac16b01574ef4fe3c920b9b5d08aee78
   text-align: right;
   justify-content: space-between;
   max-height: 646px;
@@ -231,8 +236,12 @@ p {
 }
 #main-content{
   margin:0 auto;
+<<<<<<< HEAD
   max-width: 1150px;
   width: 100%;
+=======
+  max-width: 70%;
+>>>>>>> 92bd4263ac16b01574ef4fe3c920b9b5d08aee78
   text-align: right;
 }
 input[type="text"]::-moz-placeholder{color: grey;}
@@ -365,7 +374,7 @@ input[type="button"].button-primary:focus {
 
 
 #buttons{
-    position:absolute;
+    position:fixed;
     z-index: 1000000;
 }
 /* Hamburger Button*/
