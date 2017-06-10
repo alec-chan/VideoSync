@@ -8,7 +8,7 @@ html {
 }
 body {
     overflow-x: hidden;
-    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),url('../assets/images/bg.jpg') no-repeat center center fixed; 
+    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),url('../assets/images/bg.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -37,10 +37,7 @@ body.dimmed {
     background-position:center;
 }
 
-input[type="text"] {
-    width: 30%;
 
-}
 
 .container {
     width: 100%;
@@ -48,7 +45,7 @@ input[type="text"] {
     padding: 0px;
 }
 .one {
-    width: 50%;
+    max-width: 50%;
     text-align: left;
     float: left;
     line-height: 20px;
@@ -60,6 +57,7 @@ input[type="text"] {
 .two {
     margin-left: 0%;
     line-height: 5px;
+    max-width: 50%;
 }
 
 #code {
@@ -91,6 +89,9 @@ a {
     #welcomelist
     {
         display: none;
+    }
+    body{
+        background: #212121;
     }
 }
 
@@ -135,6 +136,7 @@ a {
 #chat_area::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 }
 
@@ -156,6 +158,7 @@ a {
 #queue::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 }
 
@@ -219,13 +222,16 @@ p {
 
 #video-wrapper {
   margin:0 auto;
-  max-width: inherit;
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   text-align: right;
+  justify-content: space-between;
+  max-height: 646px;
+  
 }
 #main-content{
   margin:0 auto;
-  max-width: 960px;
+  max-width: 1150px;
   width: 100%;
   text-align: right;
 }
@@ -259,8 +265,7 @@ input[type="url"],
 input[type="password"],
 textarea {
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none; }
+     -moz-appearance: none;}
 textarea {
   min-height: 65px;
   padding-top: 6px;
@@ -404,6 +409,22 @@ input[type="button"].button-primary:focus {
     transition: all 0.5s ease;
 }
 
+#side-by-side-queue {
+    max-height: 100%;
+    display: none;
+}
+
+#video.toggled {
+   
+
+    flex: 3 1 74%;
+
+}
+
+#side-by-side-queue.toggled {
+    flex: 1 1 25%;
+    display: block;
+}
 #wrapper.toggled {
     padding-left: var(--chatsize);
 }
@@ -440,6 +461,18 @@ input[type="button"].button-primary:focus {
     margin-right: var(--invchatsize);
 }
 
+
+
+#queue{
+    max-width: 100%; 
+    line-height: 20px;
+    overflow-y: auto; 
+    overflow-x:hidden; 
+    
+    max-height: 85%;
+    word-wrap: none;
+    text-align: left;
+}
 /* Sidebar Styles */
 
 .sidebar-nav {
@@ -480,4 +513,5 @@ input[type="button"].button-primary:focus {
         margin-right: 0;
     }
 }
+
 

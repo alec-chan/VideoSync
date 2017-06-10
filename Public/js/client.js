@@ -148,12 +148,6 @@ function clearqueue() {
   if (!$("#queue").hasClass("hidden")) {
     $("#queue").toggleClass("hidden");
   }
-  if (!$("#queuetitle").hasClass("hidden")) {
-    $("#queuetitle").toggleClass("hidden");
-  }
-  if (!$("#gethash").hasClass("hidden")) {
-    $("#gethash").toggleClass("hidden");
-  }
 }
 
 function ValidURL(str) {
@@ -202,12 +196,6 @@ function addToQueueHTML(url) {
   if ($("#queue").hasClass("hidden")) {
     $("#queue").toggleClass("hidden");
   }
-  if ($("#queuetitle").hasClass("hidden")) {
-    $("#queuetitle").toggleClass("hidden");
-  }
-  if ($("#gethash").hasClass("hidden")) {
-    $("#gethash").toggleClass("hidden");
-  }
   var queuestr = "<ol>";
   for (var str in queue.videoqueue) {
     queuestr +=
@@ -216,7 +204,7 @@ function addToQueueHTML(url) {
       "' onclick='requestJumpToIndex(" +
       str +
       "); return false;'>" +
-      queue.videoqueue[str].substring(0, 36) +
+      queue.videoqueue[str] +
       "</a></li>";
   }
   queuestr += "</ol>";
@@ -386,6 +374,35 @@ function toggleTheaterMode() {
   } else {
     exitTheaterMode();
   }
+}
+
+// Function from David Walsh: http://davidwalsh.name/css-animation-callback
+function whichTransitionEvent(){
+  var t,
+      el = document.createElement("fakeelement");
+
+  var transitions = {
+    "transition"      : "transitionend",
+    "OTransition"     : "oTransitionEnd",
+    "MozTransition"   : "transitionend",
+    "WebkitTransition": "webkitTransitionEnd"
+  }
+
+  for (t in transitions){
+    if (el.style[t] !== undefined){
+      return transitions[t];
+    }
+  }
+}
+var transitionEvent = whichTransitionEvent();
+
+function toggleQueue()
+{
+  
+  $('#video').toggleClass('toggled');
+  $('#side-by-side-queue').toggleClass('toggled');
+
+  
 }
 
 
