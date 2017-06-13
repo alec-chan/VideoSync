@@ -261,6 +261,7 @@ function chat_add_message(msg, me) {
 
   $("#chat_area").append(chat);
 
+
   document.getElementById("chat_area").scrollTop = document.getElementById(
     "chat_area"
   ).scrollHeight;
@@ -293,7 +294,9 @@ $("#name").on("keyup", function(e) {
     }
   }
 });
-
+function playSound(filename){   
+  document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="assets/sounds/' + filename + '.mp3" type="audio/mpeg" /><source src="assets/sounds/' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="assets/sounds/' + filename +'.mp3" /></audio>';
+}
 $("#url").on("keyup", function(e) {
   if (e.keyCode == 13) {
     sendMessage(ACTIONS.SETURL, document.getElementById("url").value);
@@ -422,7 +425,7 @@ function goTheaterMode() {
 function exitTheaterMode() {
   isTheater = false;
   document.getElementById("non-video-content").style = "display: inline;";
-  document.getElementById("main-content").style = "max-width: 960px;";
+  document.getElementById("main-content").style = "max-width: 1150px;";
   document.getElementsByClassName("container")[0].style = "display: inline;";
   document.getElementsByClassName("video-js")[0].style = "height:  100%;";
   $("body").toggleClass("dimmed");

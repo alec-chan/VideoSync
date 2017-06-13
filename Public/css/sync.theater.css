@@ -223,7 +223,7 @@ p {
 #video-wrapper {
   margin:0 auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   text-align: right;
   justify-content: space-between;
   max-height: 646px;
@@ -412,6 +412,7 @@ input[type="button"].button-primary:focus {
 #side-by-side-queue {
     max-height: 100%;
     display: none;
+    background: #000;
 }
 
 #video.toggled {
@@ -423,7 +424,7 @@ input[type="button"].button-primary:focus {
 
 #side-by-side-queue.toggled {
     flex: 1 1 25%;
-    display: block;
+    display: inline;
 }
 #wrapper.toggled {
     padding-left: var(--chatsize);
