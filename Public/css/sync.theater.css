@@ -411,8 +411,10 @@ input[type="button"].button-primary:focus {
 
 #side-by-side-queue {
     max-height: 100%;
+    max-width: 290px;
     display: none;
     background: #000;
+
 }
 
 #video.toggled {
@@ -465,7 +467,7 @@ input[type="button"].button-primary:focus {
 
 
 #queue{
-    max-width: 100%; 
+    max-width: 100%;
     line-height: 20px;
     overflow-y: auto; 
     overflow-x:hidden; 
@@ -473,6 +475,11 @@ input[type="button"].button-primary:focus {
     max-height: 85%;
     word-wrap: none;
     text-align: left;
+}
+#queuelist{
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: none;
 }
 /* Sidebar Styles */
 

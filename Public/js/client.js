@@ -196,7 +196,7 @@ function addToQueueHTML(url) {
   if ($("#queue").hasClass("hidden")) {
     $("#queue").toggleClass("hidden");
   }
-  var queuestr = "<ol>";
+  var queuestr = "<ol id='queuelist'>";
   for (var str in queue.videoqueue) {
     queuestr +=
       "<li><a href='#" +
@@ -582,43 +582,7 @@ function processEvent(event) {
 //////////    URL PARSER CODE    //////////
 //////////                       //////////
 ///////////////////////////////////////////
-var URLTYPES = {
-  bittorrent: ["magnet:", ".torrent"],
-  direct: [
-    ".webm",
-    ".mp4",
-    ".gifv",
-    ".ogg",
-    ".ogv",
-    ".mkv",
-    ".avi",
-    ".mp3",
-    ".flac",
-    ".m4a",
-    ".aac",
-    "redirector.googlevideo.com",
-    "googleusercontent",
-    "googlevideo"
-  ],
-  youtube: ["youtube", "youtu.be"],
-  livestream: [
-    "crunchyroll.com",
-    "adultswim.com",
-    "dailymotion.com",
-    "daisuki.net",
-    "funimation.com",
-    "https://drive.google.com",
-    "mlg.tv",
-    "9anime.to",
-    "nbc.com",
-    "nbcsports.com",
-    "periscope.tv",
-    "streamable.com",
-    "twitch.tv",
-    "ustream.tv",
-    "weeb.tv"
-  ]
-};
+
 
 // Create Base64 Object
 var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
@@ -656,82 +620,113 @@ function hashToQueue(string) {
         
     })
 }*/
+
+
 function parseurl(url, exceptTorrent) {
-  console.log("parsing url...");
-  for (var key in URLTYPES) {
-    console.log("trying key: " + key);
-    for (var i in URLTYPES[key]) {
-      console.log("trying to match extension: " + URLTYPES[key][i]);
-      if (url.includes(URLTYPES[key][i])) {
-        console.log("Detected url type: " + key);
-        switch (key) {
-          case "bittorrent":
-            /*if(!exceptTorrent){
-                            if(client.torrents.length>0)
-                            {
-                                client.remove(client.torrents[0]);
-                            }
-                            client.add(url, function (torrent) {
-                                addFromTorrent(torrent);
-                            });
-                        }*/
-            alert(
-              "Sorry, we have temporarily removed support for bittorrent files."
-            );
-            break;
 
-          case "youtube":
-            video.src({ type: "video/youtube", src: url });
-            break;
+  function livestream() {
+    xhr.onreadystatechange = function() {
+      console.log(
+        "Got response " + this.readyState + " from URL parser server..."
+      );
+      if (this.readyState != 4) return;
+      console.log(
+        "Got HTTP status " + this.status + " from URL parser server..."
+      );
+      if (this.status === 200) {
+        var data = JSON.parse(this.responseText);
 
-          case "direct":
-            if (URLTYPES[key][i] === "redirector.googlevideo.com") {
-              video.src({ type: "video/mp4", src: url });
-            } else {
-              //console.log("video/"+URLTYPES[key][i].slice(1));
-              video.src(url);
-            }
-
-            break;
-          case "livestream":
-            xhr.onreadystatechange = function() {
-              console.log(
-                "Got response " + this.readyState + " from URL parser server..."
-              );
-              if (this.readyState != 4) return;
-              console.log(
-                "Got HTTP status " + this.status + " from URL parser server..."
-              );
-              if (this.status === 200) {
-                var data = JSON.parse(this.responseText);
-
-                video.src({
-                  type: "application/x-mpegURL",
-                  src: data["unenc-url"]
-                });
-              }
-
-              // end of state change: it can be after some time (async)
-            };
-            xhr.open(
-              "POST",
-              "http://" + window.location.hostname + ":8080",
-              true
-            );
-            xhr.setRequestHeader(
-              "Content-Type",
-              "application/x-www-form-urlencoded; charset=UTF-8"
-            );
-            xhr.send("enc-url=" + url);
-            break;
-        }
+        video.src({
+          type: "application/x-mpegURL",
+          src: data["unenc-url"]
+        });
         video.play();
         return;
       }
-    }
 
-    if (key === "livestream") {
-      video.src(url);
+      // end of state change: it can be after some time (async)
+    };
+    xhr.open(
+      "POST",
+      "http://" + window.location.hostname + ":8080",
+      true
+    );
+    xhr.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded; charset=UTF-8"
+    );
+    xhr.send("enc-url=" + url);
+  }
+
+  function youtube(){
+    video.src({ type: "video/youtube", src: url });
+    video.play();
+    return;
+  }
+
+  function direct(){
+    video.src(url);
+    video.play();
+    return;
+  }
+
+  function bittorrent(){
+    alert(
+      "Sorry, we have temporarily removed support for bittorrent files."
+    );
+    return;
+  }
+
+  var urltypes = {
+    "magnet": bittorrent, 
+    ".torrent": bittorrent,
+    ".webm": direct,
+    ".mp4": direct,
+    ".gifv": direct,
+    ".ogg": direct,
+    ".ogv": direct,
+    ".mkv": direct,
+    ".avi": direct,
+    ".mp3": direct,
+    ".flac": direct,
+    ".m4a": direct,
+    ".aac": direct,
+    "redirector.googlevideo.com": direct,
+    "googleusercontent": direct,
+    "googlevideo": direct,
+    "youtube": youtube,
+    "youtu.be": youtube,
+    "crunchyroll.com": livestream,
+    "adultswim.com": livestream,
+    "dailymotion.com": livestream,
+    "daisuki.net": livestream,
+    "funimation.com": livestream,
+    "https://drive.google.com": livestream,
+    "mlg.tv": livestream,
+    "https://9anime.to": livestream,
+    "nbc.com": livestream,
+    "nbcsports.com": livestream,
+    "periscope.tv": livestream,
+    "streamable.com": livestream,
+    "twitch.tv": livestream,
+    "ustream.tv": livestream,
+    "weeb.tv": livestream,
+
+    //default case
+    "ø": direct
+  };
+
+  //check for matches with each key
+  for(var k in urltypes){
+    if(url.includes(k)){
+      urltypes[k]();
+      return;
     }
   }
+
+  //ø is used here to prevent urls being matched to the default case
+  //no url will ever contain ø so it will never be matched and we can reserve the default case
+  urltypes['ø']();
+
+
 }
