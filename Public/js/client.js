@@ -12,7 +12,7 @@ var isTheater = false;
 var connected_count = 0;
 var namelength = 8;
 var myname;
-
+var isChatOpen = false;
 
 ////////////////////////////
 //ACTIONS mapping -- very critical,
@@ -57,9 +57,11 @@ $(document).ready(function() {
     }
 
     if (isTheater) $("#buttons").fadeIn();
+    if (isChatOpen) $("#buttons").fadeIn();
 
     timer = setTimeout(function() {
       if (isTheater) $("#buttons").fadeOut();
+      if (isChatOpen) $("#buttons").fadeOut();
     }, 3000);
   });
 });
