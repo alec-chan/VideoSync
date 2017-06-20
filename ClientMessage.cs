@@ -47,7 +47,8 @@ namespace VideoSync
         REQUESTQUEUE,
         CLEARQUEUE,
         SKIPTOINDEX,
-        RECIEVEQUEUE
+        RECIEVEQUEUE,
+        OPENROOM
     }
 
     public class Client

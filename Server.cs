@@ -92,7 +92,7 @@ namespace VideoSync
                 //the new url is broadcasted back to all clients except owner
                 //CLIENTSIDE NOTE: clients should all set currentTime to 0
                 case (int)ACTIONS.SETURL:
-                    BroadcastExcept(ACTIONS.BROADCASTURL, cm.data);
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.BROADCASTURL, cm.data));
                     break;
 
                 //Broadcast owner's pause request to all clients
@@ -151,7 +151,9 @@ namespace VideoSync
                 case (int)ACTIONS.RECIEVEQUEUE:
                     Sessions.Broadcast(ConstructMessage(ACTIONS.RECIEVEQUEUE, cm.data));
                     break;                
-
+                case (int)ACTIONS.OPENROOM:
+                    Sessions.Broadcast(ConstructMessage(ACTIONS.OPENROOM, null));
+                    break;
             }
 
             

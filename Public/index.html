@@ -36,7 +36,7 @@
       type="image/png" 
       href="favicon.png">
     <!-- Custom CSS -->
-
+    <link rel="stylesheet" href="node_modules/css-toggle-switch/dist/toggle-switch.css">
     <link
         href="css/sync.theater.css"
         rel="stylesheet"
@@ -47,21 +47,21 @@
         rel="stylesheet"
     ></link>
 
-    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>-->
 
     <link
         href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
         rel="stylesheet"
         type="text/css"
     ></link>
-
-    <script src="node_modules/drag-drop/dragdrop.min.js"></script>
+    
+    <!--<script src="node_modules/drag-drop/dragdrop.min.js"></script>-->
     <script src="https://use.fontawesome.com/d244c2f21f.js"></script>
     <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
     <script src="js/Youtube.js"></script>
     <!-- <script src="node_modules/videojs-externals/dist/videojs-externals.min.js"></script> -->
     <script src="node_modules/videojs-ass/src/videojs.ass.js"></script>
-    <script src="node_modules/libjass/libjass.js"></script>
+    <!--<script src="node_modules/libjass/libjass.js"></script> -->
     <script src="js/videojs-contrib-hls.min.js"></script>
     <script src="js/videojs-contrib-media-sources.js"></script>
 </head>
@@ -158,19 +158,31 @@
                                     >sync.theater</h1>
                                 </a>
 
-                                <div id="subtitle">
-                                    Share your room code!
+                                <div id="infodiv">
+                                    <span id="subtitlespan">
+                                        <span id="subtitle">Share your room code!</span>
 
-                                    <input
-                                        type="text"
-                                        onclick="this.select();"
-                                        id="code"
-                                        style="background: transparent;"
-                                        readonly="readonly"
-                                    ></input>
+                                        <input
+                                            type="text"
+                                            onclick="this.select();"
+                                            id="code"
+                                            style="background: transparent;"
+                                            readonly="readonly"
+                                        ></input>
+                                    </span>
+                                    
+                                    <label id="roomtoggle" class="switch-light switch-holo hidden noSelect" onclick="" title="Opening your room will allow anyone to control playback and add to or clear the queue.">
+                                        <input type="checkbox" id="roomopentoggle">
+                                            <strong>Room Permission</strong>
+                                        <span>
+                                            <span>Closed</span>
+                                            <span>Open</span>
+                                            <a id="togglea"></a>
+                                        </span>
+                                    </label>
                                 </div>
-
-                                <br>
+                                
+                                
                             </div>
 
                             <div id="video-wrapper">
@@ -245,6 +257,7 @@
                                                     id="clearqueue"
                                                     style="width: 49.5%; margin-left: 0.5%; margin-top: 4px;"
                                                 >Clear queue</a>
+                                                
                                             </tr>
                                         </div>
                                         <h4

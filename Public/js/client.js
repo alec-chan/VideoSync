@@ -13,7 +13,7 @@ var connected_count = 0;
 var namelength = 8;
 var myname;
 var isChatOpen = false;
-
+var isRoomOpen=false;
 ////////////////////////////
 //ACTIONS mapping -- very critical,
 //this dict has to match exactly with
@@ -39,7 +39,8 @@ var ACTIONS = {
   REQUESTQUEUE: 16,
   CLEARQUEUE: 17,
   SKIPTOINDEX: 18,
-  RECIEVEQUEUE: 19
+  RECIEVEQUEUE: 19,
+  OPENROOM: 20
 };
 
 //var client = new WebTorrent();
@@ -66,6 +67,23 @@ $(document).ready(function() {
   });
 });
 
+$("#roomopentoggle").change(function(){
+  custom_alert("Opening this room will give full control to anyone who joins!", "Are you sure?", openRoom, cancelOpenRoom);
+});
+
+function openRoom(){
+  if($("#roomopentoggle").is(':checked')){
+    sendMessage(ACTIONS.OPENROOM, null);
+    $("#roomopentoggle").prop('disabled',true);
+    isRoomOpen=true;
+  }
+}
+function cancelOpenRoom(){
+  if($("#roomopentoggle").is(':checked')){
+    $("#roomopentoggle").prop('checked',false);
+    isRoomOpen=false;
+  }
+}
 ///dont allow clients to seek
 if (!owner) {
   video.off("seeked");
@@ -75,7 +93,7 @@ video.autoplay(true);
 
 ///sync interval
 setInterval(function() {
-  if (owner) {
+  if (owner&&!isRoomOpen) {
     sendMessage(ACTIONS.SETTIME, video.currentTime());
   }
 }, 0.05);
@@ -241,6 +259,32 @@ video.on("ended", function() {
 /////////////////////////
 //// END OF QUEUE STUFF
 /////////////////////////
+
+
+function custom_alert( message, title, okcallback, cancelcallback) {
+    if ( !title )
+        title = 'Alert';
+
+    if ( !message )
+        message = 'No Message to Display.';
+
+    $('<div></div>').html( message ).dialog({
+        title: title,
+        resizable: false,
+        modal: true,
+        buttons: {
+            'Ok': function()  {
+                okcallback();
+                $( this ).dialog( 'close' );
+            },
+            'Cancel': function(){
+              cancelcallback();
+              $( this ).dialog( 'close' );
+            }
+        }
+    });
+}
+
 
 /////////////////////////
 /////// CHAT STUFF
@@ -449,8 +493,10 @@ function processEvent(event) {
       document
         .getElementById("addqueue")
         .addEventListener("click", function(event) {
-          sendMessage(ACTIONS.SETURL, document.getElementById("url").value);
+          
+          
           addToQueue(document.getElementById("url").value);
+          sendMessage(ACTIONS.RECIEVEQUEUE, queue);
           document.getElementById("url").value = "";
         });
       document
@@ -469,7 +515,7 @@ function processEvent(event) {
           
           
         });
-
+        $("#roomtoggle").toggleClass("hidden");
         $("#url").toggleClass("hidden");
         $("#addqueue").toggleClass("hidden");
         $("#clearqueue").toggleClass("hidden");
@@ -508,7 +554,7 @@ function processEvent(event) {
       video.play();
       break;
     case ACTIONS.BROADCASTTIME:
-      if (!owner) {
+      if (!owner||isRoomOpen) {
         if (
           Math.abs(video.currentTime() - event.data) > 0.3 &&
           !video.paused()
@@ -536,23 +582,24 @@ function processEvent(event) {
       break;
     case ACTIONS.BROADCASTCOUNT:
       console.log("Got ACTIONS.BROADCASTCOUNT: " + event.data);
+      if(event.data-1>connected_count) {if(owner&&isRoomOpen){sendMessage(ACTIONS.OPENROOM, null);}}
       var clients = (connected_count = event.data - 1);
       console.log("clients=" + clients);
       if (clients === 0) {
-        $("#subtitle").html(
-          "Share your room code! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />"
+        $("#subtitle").text(
+          "Share your room code!"
         );
       } else if (clients === 1) {
-        $("#subtitle").html(
+        $("#subtitle").text(
           "Watching with " +
             clients +
-            " other - Invite more! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />"
+            " other - Invite more!"
         );
       } else {
-        $("#subtitle").html(
+        $("#subtitle").text(
           "Watching with " +
             clients +
-            " others - Invite more! <input type='text' onclick='this.select();' id='code' style='background: transparent;' readonly />"
+            " others - Invite more!"
         );
       }
       document.getElementById("code").value = href;
@@ -576,6 +623,55 @@ function processEvent(event) {
         setQueue();
       }
       break;
+    case ACTIONS.OPENROOM:
+      if(!owner){
+        document.getElementById("headerid").style.color = "#FFC107";
+
+        owner = true;
+        console.log("I am the owner");
+        
+        
+        document
+          .getElementById("addqueue")
+          .addEventListener("click", function(event) {
+            
+            
+            addToQueue(document.getElementById("url").value);
+            sendMessage(ACTIONS.RECIEVEQUEUE, queue);
+            document.getElementById("url").value = "";
+          });
+        document
+          .getElementById("clearqueue")
+          .addEventListener("click", function(event) {
+            eraseCookie("queuehash");
+            sendMessage(ACTIONS.CLEARQUEUE, null);
+          });
+
+        document
+          .getElementById("gethash")
+          .addEventListener("click", function(event) {
+            var hash=convertQueueToHash();
+            createCookie("queuehash", hash, 365);
+            
+            
+            
+          });
+          video.on("seeked", function() {
+            if (owner) {
+              sendMessage(ACTIONS.SETTIME, video.currentTime());
+            }
+          });
+
+          $("#url").toggleClass("hidden");
+          $("#addqueue").toggleClass("hidden");
+          $("#clearqueue").toggleClass("hidden");
+          $("#roomtoggle").toggleClass("hidden");
+          isRoomOpen=true;
+          $("#roomopentoggle").prop('checked', true);
+          $("#roomopentoggle").prop('disabled', true);
+
+          insertWelcome();
+      }
   }
 }
 
