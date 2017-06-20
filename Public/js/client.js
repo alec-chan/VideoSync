@@ -68,7 +68,7 @@ $(document).ready(function() {
 });
 
 $("#roomopentoggle").change(function(){
-  custom_alert("Opening this room will give full control to anyone who joins!", "Are you sure?", openRoom, cancelOpenRoom);
+  custom_alert("Opening this room will give full control to anyone who joins. You cannot close a room once it is opened!", "Are you sure?", openRoom, cancelOpenRoom);
 });
 
 function openRoom(){
