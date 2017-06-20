@@ -456,6 +456,8 @@ input[type="button"].button-primary:focus {
 
 }
 
+.no-close .ui-dialog-titlebar-close {display: none }
+
 #subtitlespan{
     vertical-align: middle;
     padding-bottom: 10px;

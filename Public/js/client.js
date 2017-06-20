@@ -271,6 +271,8 @@ function custom_alert( message, title, okcallback, cancelcallback) {
     $('<div></div>').html( message ).dialog({
         title: title,
         resizable: false,
+        closeOnEscape: false,
+        dialogClass: 'no-close',
         modal: true,
         buttons: {
             'Ok': function()  {
