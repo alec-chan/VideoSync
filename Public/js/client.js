@@ -14,6 +14,7 @@ var namelength = 8;
 var myname;
 var isChatOpen = false;
 var isRoomOpen=false;
+var fluid=true;
 ////////////////////////////
 //ACTIONS mapping -- very critical,
 //this dict has to match exactly with
@@ -419,14 +420,6 @@ function insertWelcome() {
   document.getElementById("welcomemsg").style.color = "#FFC107";
 }
 
-function toggleTheaterMode() {
-  if (!isTheater) {
-    goTheaterMode();
-  } else {
-    exitTheaterMode();
-  }
-}
-
 // Function from David Walsh: http://davidwalsh.name/css-animation-callback
 function whichTransitionEvent(){
   var t,
@@ -457,29 +450,19 @@ function toggleQueue()
 }
 
 
-function goTheaterMode() {
-  isTheater = true;
-  document.getElementById("non-video-content").style = "display: none;";
-  document.getElementById("main-content").style =
-    "max-width: 100%; max-height: calc(100vh); width:100%; height: calc(100vh); position: absolute; left: 0; top: 0;";
-  document.getElementsByClassName("container")[0].style = "display: none;";
-  document.getElementsByClassName("video-js")[0].style =
-    "height:  calc(100vh);";
+function toggleTheaterMode() {
+  isTheater = !isTheater;
+  fluid=!fluid;
+  video.fluid(fluid);
+  var state = isTheater ? 'disable' : 'enable';
+  $(document).tooltip(state);
+  $("#non-video-content").toggleClass("hidden");
+  $("#main-content").toggleClass("theater");
+  $(".container").toggleClass("hidden");
+  $(".video-js").toggleClass("theater");
   $("body").toggleClass("dimmed");
-  document.getElementById("page-content-wrapper").style = "padding: 0px;";
+  $("#page-content-wrapper").toggleClass("theater");
 }
-
-
-function exitTheaterMode() {
-  isTheater = false;
-  document.getElementById("non-video-content").style = "display: inline;";
-  document.getElementById("main-content").style = "max-width: 1150px;";
-  document.getElementsByClassName("container")[0].style = "display: inline;";
-  document.getElementsByClassName("video-js")[0].style = "height:  100%;";
-  $("body").toggleClass("dimmed");
-  document.getElementById("page-content-wrapper").style = "padding: 15px;";
-}
-
 ///Process a recieved websocket event
 function processEvent(event) {
   switch (event.action) {
