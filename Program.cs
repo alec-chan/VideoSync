@@ -44,11 +44,11 @@ namespace VideoSync
                 {
                     if (roomCodes.Contains(path.Remove(0, 1)))
                     {
-                        path = "/index.html";
+                        path = "/index.min.html";
                     }
                     else
                     {
-                        path = "/index.html";
+                        path = "/index.min.html";
                         var newCode = RandomString(5);
                         roomCodes.Add(newCode);
                         httpsv.AddWebSocketService<Server>("/" + newCode, () => new Server () {
@@ -62,7 +62,7 @@ namespace VideoSync
 
                 if (path == "/")
                 {
-                    path = "/index.html";
+                    path = "/index.min.html";
                     var newCode = RandomString(5);
                     roomCodes.Add(newCode);
                     httpsv.AddWebSocketService<Server>("/" + newCode, () => new Server () {

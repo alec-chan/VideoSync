@@ -1,0 +1,1 @@
+uglifyjs js/jquery.js js/bootstrap.js js/jquery-ui.min.js js/video.js js/videojs-contrib-hls.min.js js/Youtube.js js/client.js -o scripts.min.js -c -m --source-map root="http://localhost/",url=scripts.min.js.map
