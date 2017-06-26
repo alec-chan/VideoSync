@@ -28,7 +28,7 @@
     <!-- Bootstrap Core CSS -->
 
     <link
-        href="css/bootstrap.min.css"
+        href="cssm/bootstrap.min.css"
         rel="stylesheet"
     ></link>
 
@@ -38,14 +38,15 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="node_modules/css-toggle-switch/dist/toggle-switch.css">
     <link
-        href="css/sync.theater.css"
+        href="cssm/sync.min.css"
         rel="stylesheet"
     ></link>
 
     <link
-        href="css/video-js.css"
+        href="cssm/video-js.min.css"
         rel="stylesheet"
     ></link>
+
 </head>
 
 <body>
@@ -89,6 +90,7 @@
                             <a
                                 id="menu-toggle"
                                 title="Toggle chat"
+                                data-placement="right"
                                 href="#menu-toggle"
                                 onclick="this.classList.toggle('change');"
                             >
@@ -102,6 +104,7 @@
                             <a
                                 id="theater-toggle"
                                 title="Toggle theater mode"
+                                data-placement="right"
                                 href="#theater-toggle"
                                 onclick="toggleTheaterMode(); return false;"
                             >
@@ -117,6 +120,7 @@
                             <a
                                 id="queue-toggle"
                                 title="Toggle queue"
+                                data-placement="right"
                                 href="#queue-toggle"
                                 onclick="toggleQueue(); return false;"
                             >
@@ -127,6 +131,94 @@
                                 
                             </a>
                         </div>
+                        <div id="userstatus">
+                            <div id="login" class="login">
+                                <i class="fa fa-user-circle"></i> <a href="#" onclick="$('#login-form').show();$('#login-modal').modal('show'); return false;">login</a> | <i class="fa fa-user-plus"></i> <a href="#" onclick="$('#register-form').show();$('#login-modal').modal('show'); return false;">register</a>
+                            </div>
+                            <div id="loggedin" class="hidden login">
+                                <i class='fa fa-user-circle'></i> welcome back <span id="username" style='color: #FFC107'> </span>! | <a href='#' onclick='logout(); return false;'>logout</a>
+                            </div>
+                        </div>
+                        <!-- BEGIN # MODAL LOGIN -->
+                        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header" align="center">
+                                            Login/Register
+                                        </div>
+                                        
+                                        <!-- Begin # DIV Form -->
+                                        <div id="div-forms">
+                                        
+                                            <!-- Begin # Login Form -->
+                                            <form id="login-form" style="display:none;">
+                                                <div class="modal-body">
+                                                    
+                                                    <input id="login_username" class="form-control" type="text" placeholder="Username" required>
+                                                    <input id="login_password" class="form-control" type="password" placeholder="Password" required>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input id="login_remember" type="checkbox"> Remember me
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success btn-lg btn-block sync-button">Login</button>
+                                                    </div>
+                                                    <div>
+                                                        <!--<button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>-->
+                                                        <button id="login_register_btn" type="button" class="btn btn-link">Register</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- End # Login Form -->
+                                            
+                                            <!-- Begin | Lost Password Form -->
+                                            <form id="lost-form" style="display:none;">
+                                                <div class="modal-body">
+                                                    
+                                                    <input id="lost_email" class="form-control" type="text" placeholder="E-Mail" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success btn-lg btn-block sync-button">Send</button>
+                                                    </div>
+                                                    <div>
+                                                        <button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
+                                                        <button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- End | Lost Password Form -->
+                                            
+                                            <!-- Begin | Register Form -->
+                                            <form id="register-form" style="display:none;">
+                                                <div class="modal-body">
+                                                    
+                                                    <input id="register_username" class="form-control" type="text" placeholder="Username" required>
+                                                    <input id="register_email" class="form-control" type="text" placeholder="E-Mail" required>
+                                                    <input id="register_password" class="form-control" type="password" placeholder="Password" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success btn-lg btn-block sync-button">Register</button>
+                                                    </div>
+                                                    <div>
+                                                        <button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
+                                                        <!--<button id="register_lost_btn" type="button" class="btn btn-link">Lost Password?</button>-->
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- End | Register Form -->
+                                            
+                                        </div>
+                                        <!-- End # DIV Form -->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END # MODAL LOGIN -->
 
                         <div id="main-content">
                             <div id="non-video-content">
@@ -198,7 +290,7 @@
                             </div>
                             
 
-                            <div class="container">
+                            <div id="foot" class="container">
                                 <div class="row">
                                     <div class="col-xs-6" style="text-align: left;">
                                         
@@ -263,26 +355,66 @@
             </div>
         </div>
 
+        <div class="modal fade" id="warning_dialog" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="color: #000">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+                    </div>
+                    <div class="modal-body">
+                        Opening your room will allow everyone to have full control over the video playback and the queue. Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="cancelOpenRoom(); return false;" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="openRoom(); return false;" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="queuenamemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Name your queue: <input id="queuename" type="text" style="background: transparent;" placeholder="queue name"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- /#page-content-wrapper -->
     </div>
 
     <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="scripts.min.js"></script>
-    <link
-        rel="stylesheet"
-        href="css/jquery-ui.css"
-    ></link>
-
+    
+    <script src="jsm/jquery.min.js"></script>
+    <script src="jsm/bootstrap.min.js"></script>
+    <!--<script src="jsm/jquery-ui.min.js"></script>-->
+    <script src="jsm/video.min.js"></script>
+    <script src="jsm/videojs-contrib-hls.min.js"></script>
+    <script src="jsm/Youtube.min.js"></script>
+    <script src="jsm/client.min.js"></script>
+    <script src="jsm/loginform.min.js"></script>
     <script>
         $( function() {
-            $( document ).tooltip({show:{delay:700}});
+            $("[title]").tooltip();
         } );
     </script>
 
     <!--<script src="node_modules/drag-drop/dragdrop.min.js"></script>-->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="cssm/font-awesome.min.css">
+    <link rel="stylesheet" href="cssm/loginform.min.css">
 
     
     <!-- <script src="node_modules/videojs-externals/dist/videojs-externals.min.js"></script> -->

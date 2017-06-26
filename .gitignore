@@ -1,2 +1,5 @@
 /bin/*
 .DS_Store
+/node_modules/*
+/Public/jsm/*
+/Public/cssm/*

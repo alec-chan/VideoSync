@@ -15,6 +15,8 @@ var myname;
 var isChatOpen = false;
 var isRoomOpen=false;
 var fluid=true;
+var loggedin = false;
+var user = "";
 ////////////////////////////
 //ACTIONS mapping -- very critical,
 //this dict has to match exactly with
@@ -44,7 +46,6 @@ var ACTIONS = {
   OPENROOM: 20
 };
 
-//var client = new WebTorrent();
 var queue = {
   videoqueue: [],
   queueindex: 0
@@ -68,8 +69,9 @@ $(document).ready(function() {
   });
 });
 
+
 $("#roomopentoggle").change(function(){
-  custom_alert("Opening this room will give full control to anyone who joins. You cannot close a room once it is opened!", "Are you sure?", openRoom, cancelOpenRoom);
+  $('#warning_dialog').modal('show');
 });
 
 function openRoom(){
@@ -107,22 +109,37 @@ socket.onmessage = function(event) {
 };
 
 window.onload = function() {
-  readAllCookies();
+  if(readCookie("autologin")){
+    getUserInfo();
+  }
+  setupChatUsername();
 };
 
-function readAllCookies()
+function setupChatUsername()
 {
-  var name = readCookie("username");
-  if (name) {
+  if(user===""){
+    console.log("no logged in user");
+    var name = readCookie("username");
+    if (name) {
+      $("#name").attr("readonly", true);
+      $("#name").replaceWith(
+        "<h5 id='name' title='Clear your cookies to change your name!'>Welcome back <font color='#FFC107'>" +
+          name +
+          "</font>!</h5>"
+      );
+      myname = name;
+    } else {
+      myname = owner ? "owner" : "client";
+    }
+  }
+  else{
     $("#name").attr("readonly", true);
-    $("#name").replaceWith(
-      "<h5 title='Clear your cookies to change your name!'>Welcome back <font color='#FFC107'>" +
-        name +
-        "</font>!</h5>"
-    );
-    myname = name;
-  } else {
-    myname = owner ? "owner" : "client";
+      $("#name").replaceWith(
+        "<h5 id='name' title='Clear your cookies to change your name!'>Welcome back <font color='#FFC107'>" +
+          user +
+          "</font>!</h5>"
+      );
+      myname=user;
   }
   
 }
@@ -143,6 +160,116 @@ function loadQueueFromCookie()
     }
   }
 }
+
+
+function loadQueue(queuename){
+  if(owner){
+    if(loggedin){
+      var queuehash="";
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://'+window.location.hostname+':8000/api/getonequeue', true);
+      xhr.setRequestHeader('x-access-token', readCookie("logintoken"));
+      xhr.setRequestHeader('queuename', queuename);
+      
+      xhr.onload = function () {
+          // do something to response
+          var res=JSON.parse(this.responseText);
+          if(res.success===true){
+              console.log("got hash: "+this.responseText);
+              queuehash=res.queuehash;
+              document.getElementById("url").value=queuehash;
+              sendMessage(ACTIONS.SETURL, document.getElementById("url").value);
+              addToQueue(document.getElementById("url").value);
+              document.getElementById("url").value = "";
+          }
+          else{
+            console.log("failed to get queue");
+          }
+      };
+      xhr.send();
+
+
+      
+    }
+  }
+}
+
+function saveQueueToDB(name){
+  if(loggedin){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://'+window.location.hostname+':8000/api/savequeue', true);
+    xhr.setRequestHeader('x-access-token', readCookie("logintoken"));
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+        // do something to response
+        var res=JSON.parse(this.responseText);
+        if(res.success===true){
+            console.log("successfully saved queue");
+        }
+        else{
+          console.log("could not save queue");
+        }
+    };
+    var data=JSON.stringify({name: name, hash: convertQueueToHash()});
+    console.log("sending queue to DB: "+data);
+    xhr.send(data);
+  }
+}
+
+//// login code
+function authenticate(user, pass, remember){
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'http://'+window.location.hostname+':8000/api/authenticate', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.onload = function () {
+      // do something to response
+      var res=JSON.parse(this.responseText);
+      if(res.success===true){
+          createCookie("logintoken", res.token, 1);
+          if(remember){
+            createCookie("autologin", true, 1);
+          }
+          $('#login-modal').modal('hide');
+          getUserInfo();
+      }
+  };
+  xhr.send('name='+user+'&password='+pass);
+  
+}
+
+function getUserInfo(){
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://'+window.location.hostname+':8000/api/userinfo', true);
+  xhr.setRequestHeader('x-access-token', readCookie("logintoken"));
+  xhr.onload = function () {
+      // do something to response
+      var res=JSON.parse(this.responseText);
+      if(res.success===true){
+          $("#login").toggleClass("hidden");
+          $("#loggedin").toggleClass("hidden");
+          $("#username").text(res.user);
+          user=res.user;
+          setupChatUsername();
+          loggedin=true;
+      }
+      else{
+        user="";
+        logout();
+        setupChatUsername();
+        
+      }
+  };
+  xhr.send();
+}
+
+function logout(){
+  eraseCookie("logintoken");
+  $("#login").toggleClass("hidden");
+  $("#loggedin").toggleClass("hidden");
+  loggedin=false;
+  
+}
+
 ///tell server we are disconnecting
 window.onbeforeunload = function() {
   //if(owner)
@@ -260,33 +387,6 @@ video.on("ended", function() {
 /////////////////////////
 //// END OF QUEUE STUFF
 /////////////////////////
-
-
-function custom_alert( message, title, okcallback, cancelcallback) {
-    if ( !title )
-        title = 'Alert';
-
-    if ( !message )
-        message = 'No Message to Display.';
-
-    $('<div></div>').html( message ).dialog({
-        title: title,
-        resizable: false,
-        closeOnEscape: false,
-        dialogClass: 'no-close',
-        modal: true,
-        buttons: {
-            'Ok': function()  {
-                okcallback();
-                $( this ).dialog( 'close' );
-            },
-            'Cancel': function(){
-              cancelcallback();
-              $( this ).dialog( 'close' );
-            }
-        }
-    });
-}
 
 
 /////////////////////////
@@ -454,8 +554,7 @@ function toggleTheaterMode() {
   isTheater = !isTheater;
   fluid=!fluid;
   video.fluid(fluid);
-  var state = isTheater ? 'disable' : 'enable';
-  $(document).tooltip(state);
+  $("#userstatus").toggleClass("hidden");
   $("#non-video-content").toggleClass("hidden");
   $("#main-content").toggleClass("theater");
   $(".container").toggleClass("hidden");
@@ -495,7 +594,9 @@ function processEvent(event) {
         .getElementById("gethash")
         .addEventListener("click", function(event) {
           var hash=convertQueueToHash();
+          
           createCookie("queuehash", hash, 365);
+          
           
           
           

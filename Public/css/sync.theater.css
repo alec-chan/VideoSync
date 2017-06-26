@@ -79,7 +79,7 @@ body.dimmed {
     background-attachment:fixed;
     background-position:center;
 }
-.container {
+#foot.container {
     width: 100%;
     margin: auto;
     margin-top: 15px;
@@ -297,6 +297,11 @@ p {
   
   
 }
+
+#video{
+    width: 100%;
+    height: 100%;
+}
 #main-content{
   margin:0 auto;
   max-width: 100%;
@@ -457,12 +462,19 @@ input[type="button"].button-primary:focus {
 #buttons{
     position:fixed;
     z-index: 1000000;
+    
+
 }
-/* Hamburger Button*/
-.container {
-    display: inline-block;
-    cursor: pointer;
+
+
+.login{
+    position:fixed;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    z-index: 1000000;
 }
+
 
 .bar1, .bar2, .bar3 {
     width: 35px;

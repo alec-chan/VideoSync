@@ -2,7 +2,7 @@
 #### Watch videos in sync with friends over WebSockets! 
 VideoSync is a web app which uses Websockets to synchronize one video player to any number of clients' video players.
 The project provides both a server and client solution.
-The client is written in standard HTML/CSS/JS with a few JS libraries: VideoJS, WebTorrent, and Drag-Drop.
+The client is written in standard HTML/CSS/JS with a few JS libraries: VideoJS and Bootstrap.
 The server is written in C# and relies on the .NET Framework version 4.5.  On unix based systems, the server can still be compiled and run using Mono.
 
 Within one room, there is one owner and any number of clients.  The owner has full control of the video playback and the video source, while the clients can only pause their own video players (useful if the video is having trouble buffering), but the pause is not broadcast globally like the owner's.
@@ -15,6 +15,7 @@ All video is externally hosted.  Currently, the client is able to handle URLs di
 - Unix-based: run `./run_local.sh` this will attempt to start the server and if it can't find compiled binaries, it will run `mcs_build.sh` to attempt to create them.
 - Windows: run `run_local.bat` which will do the same as above with `mcs_build.bat`.
 - NOTE: To upgrade the binary after modifying server code, run `mcs_build.sh` or `mcs_build.bat` to compile updated binaries.
+- To compile the minified HTML/JS/CSS files, you need to have grunt. To install, first make sure you have npm installed and then just run `npm install`. To minify all files, simply run `grunt`. While you are working, you can run `grunt watch` to automatically update the minified files as you make changes to the source files.
 
 ## Usage
 - Unix-based: run `sudo ./run_local.sh` and it will prompt you for an admin password. Running without sudo will not work as the server runs on port 80 which needs root access.
