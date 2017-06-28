@@ -92,14 +92,15 @@
                                 title="Toggle chat"
                                 data-placement="right"
                                 href="#menu-toggle"
-                                onclick="this.classList.toggle('change');"
+                                
                             >
-                                <div class="bar1"></div>
-                                <div class="bar2"></div>
-                                <div class="bar3"></div>
+                                <span id="chat-icon"
+                                    class="glyphicon glyphicon-comment"
+                                    style="font-size: 34px; color: #bdbdbd;"
+                                ></span>
                             </a>
                             <br/>
-                            
+                            <br/>
 
                             <a
                                 id="theater-toggle"
@@ -261,7 +262,7 @@
                             <div id="video-wrapper">
                                 <video
                                     id="video"
-                                    class="video-js vjs-default-skin"
+                                    class="video-js vjs-default-skin vjs-fluid"
                                     controls="controls"
                                     preload="auto"
                                     poster=""
@@ -306,7 +307,7 @@
                                         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8WN93X4L7C2YG" target="_blank">Help keep the server running!</a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <div id="queuecontrols" style="float: right; display: table; margin-top: 5px;">
+                                        <div id="queuecontrols" style="float: right; display: table; margin-top: 5px; width: 75%;">
                                             <input
                                                 id="url"
                                                 type="text"
@@ -315,19 +316,19 @@
                                                 placeholder="your video url goes here"
                                             ></input>
                                         
-                                            <tr>
+                                            <div>
                                                 <a
                                                     class="button button-primary hidden"
                                                     id="addqueue"
-                                                    style="width: 49.5%; margin-right: 0.5%;margin-top: 4px;"
+                                                    style="float: left; width: 49.5%; margin-right: 0.5%; margin-top: 4px;"
                                                 >Add to queue</a>
                                                 <a
                                                     class="button button-primary hidden"
                                                     id="clearqueue"
-                                                    style="width: 49.5%; margin-left: 0.5%; margin-top: 4px;"
+                                                     style="float: right; width: 49.5%; margin-left: 0.5%; margin-top: 4px;"
                                                 >Clear queue</a>
-                                                
-                                            </tr>
+                                            </div>
+                                            
                                         </div>
                                         <h4
                                             id="queuetitle"
@@ -404,27 +405,17 @@
     <script src="jsm/video.min.js"></script>
     <script src="jsm/videojs-contrib-hls.min.js"></script>
     <script src="jsm/Youtube.min.js"></script>
+    <script src="jsm/notify.min.js"></script>
     <script src="jsm/client.min.js"></script>
     <script src="jsm/loginform.min.js"></script>
+    
     <script>
         $( function() {
             $("[title]").tooltip();
         } );
     </script>
-
-    <!--<script src="node_modules/drag-drop/dragdrop.min.js"></script>-->
     <link rel="stylesheet" href="cssm/font-awesome.min.css">
     <link rel="stylesheet" href="cssm/loginform.min.css">
-
-    
-    <!-- <script src="node_modules/videojs-externals/dist/videojs-externals.min.js"></script> -->
-    
-    <!--<script src="node_modules/libjass/libjass.js"></script> -->
-    
-    <!--<script src="js/videojs-contrib-media-sources.js"></script>-->
-    <!-- sync.theater code -->
-
-    
 
     <!-- Menu Toggle Script -->
 
@@ -433,9 +424,11 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
         isChatOpen=!isChatOpen;
+        if(isChatOpen){
+            unreadChats=0;
+        }
     });
     </script>
 
-    <div id="sound"></div>
 </body>
 </html>

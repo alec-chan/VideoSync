@@ -294,19 +294,20 @@ p {
   flex-wrap: nowrap;
   text-align: right;
   justify-content: space-between;
-  
+
   
 }
 
-#video{
-    width: 100%;
-    height: 100%;
+.video-js.vjs-default-skin.vjs-fluid{
+    width: calc(70vw);
+    height: calc(39.375vw);
 }
 #main-content{
   margin:0 auto;
   max-width: 100%;
   min-width: 70%;
   width: 70%;
+
   text-align: right;
 }
 .video-js.theater{
@@ -330,6 +331,11 @@ p {
         width: 80%;
     }
 }
+
+
+
+
+
 input[type="text"]::-moz-placeholder{color: grey;}
 input[type="text"]::-webkit-input-placeholder{color:gray;}
 /* Forms
@@ -626,15 +632,6 @@ input[type="button"].button-primary:focus {
     word-wrap: none;
 }
 /* Sidebar Styles */
-
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: var(--chatsize);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
 
 
 

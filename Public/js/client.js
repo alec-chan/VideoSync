@@ -17,6 +17,7 @@ var isRoomOpen=false;
 var fluid=true;
 var loggedin = false;
 var user = "";
+var unreadChats=0;
 ////////////////////////////
 //ACTIONS mapping -- very critical,
 //this dict has to match exactly with
@@ -113,6 +114,8 @@ window.onload = function() {
     getUserInfo();
   }
   setupChatUsername();
+
+  //$("#video-wrapper").height($("#video-wrapper").width()*(9/16));
 };
 
 function setupChatUsername()
@@ -392,6 +395,7 @@ video.on("ended", function() {
 /////////////////////////
 /////// CHAT STUFF
 /////////////////////////
+
 function chat_add_message(msg, me) {
   if (msg == "") {
     return;
@@ -409,7 +413,19 @@ function chat_add_message(msg, me) {
     "</p></div></div>";
 
   $("#chat_area").append(chat);
-
+  if(!isChatOpen){
+    unreadChats++;
+    if(unreadChats>0){
+      $("#chat-icon").notify(unreadChats+" unread", 
+        { position:"right",
+          autoHide: true, 
+          gap: 10,
+          style: "bootstrap",
+          className: 'info',
+        }
+      );
+    }
+  }
 
   document.getElementById("chat_area").scrollTop = document.getElementById(
     "chat_area"
@@ -417,6 +433,7 @@ function chat_add_message(msg, me) {
 }
 
 var last_message_sent;
+
 
 $("#chat_msg_box").on("keyup", function(e) {
   if (e.keyCode == 13) {
