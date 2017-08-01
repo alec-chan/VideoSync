@@ -1,0 +1,70 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "Mono Build DEBUG",
+            "command": "mcs",
+            "args": [
+                "Program.cs",
+                "Server.cs",
+                "ClientMessage.cs",
+                "/out:bin\\Debug\\VideoSync.exe",
+                "/reference:lib\\websocket-sharp.dll",
+                "/reference:lib\\System.Web.Extensions.dll",
+                "/define:DEBUG"
+            ],
+            "group": "build",
+            "type": "shell",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Mono Build RELEASE",
+            "command": "mcs",
+            "args": [
+                "Program.cs",
+                "Server.cs",
+                "ClientMessage.cs",
+                "/out:bin\\Release\\VideoSync.exe",
+                "/reference:lib\\websocket-sharp.dll",
+                "/reference:lib\\System.Web.Extensions.dll",
+                "/define:DEBUG"
+            ],
+            "group": "build",
+            "type": "shell",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Setup Build Environment",
+            "type": "shell",
+            "command": "./BuildTools/setup-build-env.bat",
+            "windows": {
+                "command": ".\\BuildTools\\setup-build-env.bat"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "taskName": "Debug VideoSync",
+            "type": "shell",
+            "command": "mono",
+            "args": [
+                ""
+            ],
+            "windows": {
+                "command": ".\\BuildTools\\setup-build-env.bat"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Launch",
+            "type": "mono",
+            "request": "launch",
+            "program": "${workspaceRoot}\\bin\\Debug\\VideoSync.exe",
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "name": "Release Launch",
+            "type": "mono",
+            "request": "launch",
+            "program": "${workspaceRoot}\\bin\\Release\\VideoSync.exe",
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "name": "Attach",
+            "type": "mono",
+            "request": "attach",
+            "address": "localhost",
+            "port": 55555
+        }
+    ]
+}

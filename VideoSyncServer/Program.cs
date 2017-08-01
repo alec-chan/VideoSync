@@ -17,8 +17,15 @@ namespace VideoSync
         public static void Main(string[] args)
         {
 
+#if DEBUG
+            int port = 8080;    // set debug mode port to 8080 so we don't need to run with elevated permissions
+#elif RELEASE           
+            int port = 80;      // default http port
+#endif
+            
             roomCodes = new List<string>();
-            var httpsv = new HttpServer(80);
+
+            var httpsv = new HttpServer(port);
 
 
 			var timer = new System.Threading.Timer((e) =>
@@ -99,18 +106,9 @@ namespace VideoSync
                     res.ContentType = "text/css";
                     res.ContentEncoding = Encoding.UTF8;
                 }
-
-                
                 
                 res.WriteContent(content);
-                
-                
             };
-
-           
-
-            
-
             
             httpsv.Start();
             if (httpsv.IsListening)
@@ -120,12 +118,15 @@ namespace VideoSync
                     Console.WriteLine("- {0}", path);
             }
 
-            
 
+#if DEBUG
+            // in debug mode we want to be able to easily stop the server,
+            // but in release we want to keep the server running no matter what.
             Console.WriteLine("\nPress Enter key to stop the server...");
             Console.ReadLine();
 
             httpsv.Stop();
+#endif
         }
 
         private static Random random = new Random();
@@ -158,7 +159,5 @@ namespace VideoSync
 				roomCodes.Remove(s);
 			}
 		}
-
-
     }
 }

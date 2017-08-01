@@ -190,9 +190,6 @@ function loadQueue(queuename){
           }
       };
       xhr.send();
-
-
-      
     }
   }
 }

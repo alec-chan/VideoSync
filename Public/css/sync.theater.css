@@ -332,10 +332,6 @@ p {
     }
 }
 
-
-
-
-
 input[type="text"]::-moz-placeholder{color: grey;}
 input[type="text"]::-webkit-input-placeholder{color:gray;}
 /* Forms
